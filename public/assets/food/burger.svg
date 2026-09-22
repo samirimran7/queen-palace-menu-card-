@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Bun Gradient -->
+    <linearGradient id="burgerBunTop" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="35%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <linearGradient id="burgerBunBot" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#92400e"/>
+    </linearGradient>
+    <!-- Patty Gradient -->
+    <linearGradient id="burgerPatty" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#451a03"/>
+      <stop offset="40%" stop-color="#5c2406"/>
+      <stop offset="100%" stop-color="#2d1002"/>
+    </linearGradient>
+    <!-- Cheese Gradient -->
+    <linearGradient id="burgerCheese" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="40%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <!-- Tomato Gradient -->
+    <linearGradient id="burgerTomato" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="60%" stop-color="#dc2626"/>
+      <stop offset="100%" stop-color="#991b1b"/>
+    </linearGradient>
+    <!-- Lettuce Gradient -->
+    <linearGradient id="burgerLettuce" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4ade80"/>
+      <stop offset="50%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+    <!-- Soft Glow Filter -->
+    <filter id="burgerShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#burgerShadow)">
+    <!-- Bottom Bun -->
+    <path d="M22 84 C22 93 35 98 60 98 C85 98 98 93 98 84 C98 81 85 81 60 81 C35 81 22 81 22 84 Z" fill="url(#burgerBunBot)"/>
+    <!-- Bottom Bun Highlight -->
+    <ellipse cx="60" cy="85" rx="34" ry="2" fill="#fbbf24" opacity="0.4"/>
+
+    <!-- Grilled Patty -->
+    <rect x="18" y="70" width="84" height="15" rx="7.5" fill="url(#burgerPatty)"/>
+    <!-- Patty Grill marks / Texture -->
+    <path d="M26 73 L33 82 M42 73 L49 82 M58 73 L65 82 M74 73 L81 82 M90 73 L94 78" stroke="#250d02" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+    <ellipse cx="38" cy="74" rx="3" ry="1.5" fill="#78350f" opacity="0.5"/>
+    <ellipse cx="70" cy="74" rx="4" ry="1.5" fill="#78350f" opacity="0.5"/>
+
+    <!-- Melted Cheddar Cheese with drooping melted corners -->
+    <path d="M19 69 L101 69 L97 76 L82 72 L72 82 L62 72 L50 78 L40 72 L26 80 Z" fill="url(#burgerCheese)"/>
+    <!-- Cheese sheen line -->
+    <path d="M24 70 L96 70" stroke="#fef08a" stroke-width="1.5" opacity="0.8"/>
+
+    <!-- Fresh Tomato Slices -->
+    <ellipse cx="42" cy="62" rx="22" ry="7" fill="url(#burgerTomato)"/>
+    <ellipse cx="78" cy="62" rx="22" ry="7" fill="url(#burgerTomato)"/>
+    <!-- Tomato pulp details -->
+    <ellipse cx="40" cy="62" rx="6" ry="2.5" fill="#b91c1c"/>
+    <circle cx="39" cy="62" r="1.2" fill="#fef08a" opacity="0.8"/>
+    <circle cx="43" cy="62" r="1" fill="#fef08a" opacity="0.8"/>
+    <ellipse cx="76" cy="62" rx="6" ry="2.5" fill="#b91c1c"/>
+    <circle cx="75" cy="62" r="1.2" fill="#fef08a" opacity="0.8"/>
+
+    <!-- Crisp Ruffled Lettuce with wavy natural folds -->
+    <path d="M14 58 C16 53 22 55 25 58 C29 52 35 53 38 58 C42 51 49 53 52 58 C56 50 64 52 68 58 C72 51 79 53 82 58 C86 52 92 53 95 58 C99 53 105 55 106 60 C104 64 98 64 95 62 C90 65 82 64 80 61 C75 65 67 64 64 61 C59 65 51 64 48 61 C43 65 35 64 32 61 C28 65 20 64 16 61 C13 60 13 58 14 58 Z" fill="url(#burgerLettuce)"/>
+    <!-- Lettuce leaf ribs/shine -->
+    <path d="M24 57 Q30 54 38 57 M45 56 Q55 53 65 57 M72 56 Q82 53 92 57" stroke="#86efac" stroke-width="1.2" fill="none" opacity="0.75" stroke-linecap="round"/>
+
+    <!-- Top Brioche Bun Dome -->
+    <path d="M18 54 C18 28 36 20 60 20 C84 20 102 28 102 54 C102 57 98 58 60 58 C22 58 18 57 18 54 Z" fill="url(#burgerBunTop)"/>
+    <!-- Top Bun Specular Highlight -->
+    <path d="M30 33 C38 25 54 23 68 25 C58 26 44 29 38 36 C34 40 31 43 30 33 Z" fill="#fef08a" opacity="0.45"/>
+
+    <!-- White Sesame Seeds scattered on top bun -->
+    <g fill="#fef3c7" stroke="#b45309" stroke-width="0.5">
+      <ellipse cx="38" cy="36" rx="2.5" ry="1.2" transform="rotate(-25 38 36)"/>
+      <ellipse cx="48" cy="29" rx="2.4" ry="1.2" transform="rotate(15 48 29)"/>
+      <ellipse cx="62" cy="27" rx="2.5" ry="1.2" transform="rotate(-10 62 27)"/>
+      <ellipse cx="74" cy="32" rx="2.3" ry="1.2" transform="rotate(30 74 32)"/>
+      <ellipse cx="84" cy="40" rx="2.5" ry="1.2" transform="rotate(-15 84 40)"/>
+      <ellipse cx="56" cy="36" rx="2.4" ry="1.2" transform="rotate(40 56 36)"/>
+      <ellipse cx="44" cy="44" rx="2.3" ry="1.2" transform="rotate(-30 44 44)"/>
+      <ellipse cx="68" cy="42" rx="2.5" ry="1.2" transform="rotate(20 68 42)"/>
+      <ellipse cx="79" cy="48" rx="2.2" ry="1.2" transform="rotate(-40 79 48)"/>
+      <ellipse cx="32" cy="46" rx="2.2" ry="1.1" transform="rotate(20 32 46)"/>
+      <ellipse cx="58" cy="48" rx="2.4" ry="1.2" transform="rotate(5 58 48)"/>
+    </g>
+  </g>
+</svg>

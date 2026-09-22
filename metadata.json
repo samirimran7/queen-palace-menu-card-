@@ -1,0 +1,6 @@
+{
+  "name": "Queen Palace Restaurant Menu",
+  "description": "Mobile menu website for Queen Palace Restaurant with real-time search, sticky category navigation, customer reviews, and responsive layout.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

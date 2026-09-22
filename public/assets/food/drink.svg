@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Liquid Gradient -->
+    <linearGradient id="juiceLiquid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c"/>
+      <stop offset="50%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <!-- Glass Rim & Body Highlights -->
+    <linearGradient id="glassBodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="15%" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="85%" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.45"/>
+    </linearGradient>
+    <!-- Ice Cube Gradient -->
+    <linearGradient id="iceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="45%" stop-color="#e0f2fe" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#bae6fd" stop-opacity="0.6"/>
+    </linearGradient>
+    <!-- Citrus Slice Gradient -->
+    <radialGradient id="citrusPulp" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="70%" stop-color="#facc15"/>
+      <stop offset="100%" stop-color="#ca8a04"/>
+    </radialGradient>
+    <!-- Straw Pattern -->
+    <pattern id="strawStripe" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#ef4444" stroke-width="4" />
+      <line x1="4" y1="0" x2="4" y2="8" stroke="#ffffff" stroke-width="4" />
+    </pattern>
+    <filter id="drinkShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#drinkShadow)">
+    <!-- Diagonal Straw sticking out -->
+    <g>
+      <!-- Straw base path -->
+      <path d="M68 60 L86 16 L80 14 L62 58" fill="url(#strawStripe)"/>
+      <ellipse cx="83" cy="15" rx="3.5" ry="1.8" fill="#ef4444" transform="rotate(-30 83 15)"/>
+    </g>
+
+    <!-- Glass Silhouette Outer & Base -->
+    <!-- Heavy Glass Base -->
+    <path d="M38 100 L40 106 C40 109 50 110 60 110 C70 110 80 109 80 106 L82 100 Z" fill="#ffffff" opacity="0.3"/>
+
+    <!-- Juice Liquid Inside Glass -->
+    <path d="M33 46 Q60 49 87 46 L80 102 C80 106 70 108 60 108 C50 108 40 106 40 102 L33 46 Z" fill="url(#juiceLiquid)"/>
+    <!-- Liquid surface meniscus -->
+    <ellipse cx="60" cy="46" rx="27" ry="4" fill="#fdba74"/>
+
+    <!-- Floating Ice Cubes in Liquid -->
+    <!-- Ice Cube 1 (Upper Center) -->
+    <g transform="translate(48, 42) rotate(12)">
+      <polygon points="0,6 7,0 19,3 12,9" fill="#ffffff" opacity="0.85"/>
+      <polygon points="0,6 12,9 12,19 0,16" fill="url(#iceGrad)"/>
+      <polygon points="12,9 19,3 19,13 12,19" fill="#bae6fd" opacity="0.8"/>
+      <!-- Ice internal shine facet -->
+      <line x1="2" y1="8" x2="10" y2="10" stroke="#ffffff" stroke-width="0.8" opacity="0.9"/>
+    </g>
+
+    <!-- Ice Cube 2 (Right Floating) -->
+    <g transform="translate(64, 52) rotate(-18)">
+      <polygon points="0,5 6,0 16,2 10,7" fill="#ffffff" opacity="0.85"/>
+      <polygon points="0,5 10,7 10,16 0,14" fill="url(#iceGrad)"/>
+      <polygon points="10,7 16,2 16,11 10,16" fill="#bae6fd" opacity="0.8"/>
+    </g>
+
+    <!-- Ice Cube 3 (Lower Left submerged) -->
+    <g transform="translate(42, 64) rotate(8)" opacity="0.8">
+      <polygon points="0,5 6,0 16,3 10,8" fill="#ffffff" opacity="0.6"/>
+      <polygon points="0,5 10,8 10,16 0,13" fill="url(#iceGrad)"/>
+      <polygon points="10,8 16,3 16,11 10,16" fill="#7dd3fc" opacity="0.6"/>
+    </g>
+
+    <!-- Citrus / Lemon Wheel Garnish on Glass Rim -->
+    <g transform="translate(24, 28) rotate(-25)">
+      <!-- Rind -->
+      <circle cx="16" cy="16" r="16" fill="#84cc16"/>
+      <circle cx="16" cy="16" r="14.5" fill="#facc15"/>
+      <circle cx="16" cy="16" r="13" fill="#ffffff" opacity="0.85"/>
+      <!-- Pulp segments -->
+      <circle cx="16" cy="16" r="12" fill="url(#citrusPulp)"/>
+      <!-- Citrus Segment Dividers -->
+      <path d="M16 4 L16 28 M4 16 L28 16 M7.5 7.5 L24.5 24.5 M7.5 24.5 L24.5 7.5" stroke="#ffffff" stroke-width="1" opacity="0.85"/>
+      <circle cx="16" cy="16" r="2.5" fill="#ffffff"/>
+    </g>
+
+    <!-- Glass Tumbler Walls and Highlights -->
+    <path d="M30 38 L38 102 C38 107 48 109 60 109 C72 109 82 107 82 102 L90 38 C90 34 80 32 60 32 C40 32 30 34 30 38 Z" fill="url(#glassBodyGrad)" stroke="#ffffff" stroke-width="1.2" stroke-opacity="0.6"/>
+
+    <!-- Glass Rim Oval -->
+    <ellipse cx="60" cy="38" rx="30" ry="4.5" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.75"/>
+    <ellipse cx="60" cy="38" rx="28.5" ry="3.8" fill="none" stroke="#ffffff" stroke-width="0.8" stroke-opacity="0.4"/>
+
+    <!-- Specular Reflection Streaks on Glass -->
+    <path d="M35 44 L40 96" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.55"/>
+    <path d="M38 46 L42 86" stroke="#ffffff" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+    <path d="M84 44 L79 96" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+
+    <!-- Chilled Condensation Water Droplets -->
+    <g fill="#ffffff" opacity="0.75">
+      <ellipse cx="44" cy="56" rx="1.5" ry="2.2"/>
+      <ellipse cx="43" cy="72" rx="1.2" ry="1.8"/>
+      <ellipse cx="46" cy="85" rx="1.5" ry="2"/>
+      <ellipse cx="76" cy="66" rx="1.4" ry="2"/>
+      <ellipse cx="73" cy="82" rx="1.3" ry="1.8"/>
+      <circle cx="58" cy="94" r="1.2"/>
+    </g>
+  </g>
+</svg>
