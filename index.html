@@ -240,28 +240,71 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
     .search-container {
       padding: 10px 16px 8px;
       background: var(--green-deep);
+      transition: padding 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                  background-color 0.28s ease,
+                  box-shadow 0.28s ease;
+      will-change: padding;
+    }
+
+    /* Entire container gently expands on interaction to improve mobile touch visibility */
+    .search-container:focus-within,
+    .search-container.is-focused {
+      padding: 14px 14px 12px;
+      background: #09281a;
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
     }
 
     .search-input-wrap {
       position: relative;
       display: flex;
       align-items: center;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .search-icon {
       position: absolute;
       left: 14px;
-      width: 17px;
-      height: 17px;
+      width: 18px;
+      height: 18px;
       color: var(--gold);
       pointer-events: none;
       opacity: 0.85;
+      transform-origin: center center;
+      transition: transform 0.25s ease, opacity 0.25s ease, color 0.25s ease, filter 0.25s ease;
+    }
+
+    /* Subtle pulse animation for search icon on focus */
+    @keyframes searchIconPulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.85;
+        filter: drop-shadow(0 0 0 rgba(227, 177, 62, 0));
+      }
+      50% {
+        transform: scale(1.22);
+        opacity: 1;
+        color: #fff3c9;
+        filter: drop-shadow(0 0 5px rgba(227, 177, 62, 0.85));
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0.85;
+        filter: drop-shadow(0 0 0 rgba(227, 177, 62, 0));
+      }
+    }
+
+    .search-container:focus-within .search-icon,
+    .search-container.is-focused .search-icon,
+    .search-input:focus ~ .search-icon {
+      animation: searchIconPulse 1.6s ease-in-out infinite;
+      color: var(--gold);
+      opacity: 1;
     }
 
     .search-input {
       width: 100%;
       height: 42px;
-      padding: 0 38px 0 40px;
+      padding: 0 42px 0 42px;
       border-radius: 21px;
       background-color: rgba(15, 56, 38, 0.7);
       border: 1px solid rgba(227, 177, 62, 0.28);
@@ -269,7 +312,12 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       font-family: 'Poppins', sans-serif;
       font-size: 0.92rem;
       outline: none;
-      transition: all 0.22s ease;
+      transition: height 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                  padding 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                  font-size 0.22s ease,
+                  background-color 0.22s ease,
+                  border-color 0.22s ease,
+                  box-shadow 0.22s ease;
     }
 
     .search-input::placeholder {
@@ -277,27 +325,41 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       opacity: 0.7;
     }
 
+    /* Expanded touch target & elevated focus state for mobile */
+    .search-container:focus-within .search-input,
+    .search-container.is-focused .search-input,
     .search-input:focus {
+      height: 48px;
+      font-size: 0.96rem;
+      border-radius: 24px;
       border-color: var(--gold);
-      background-color: rgba(20, 67, 46, 0.92);
-      box-shadow: 0 0 0 2px rgba(227, 177, 62, 0.25);
+      background-color: rgba(20, 67, 46, 0.95);
+      box-shadow: 0 0 0 3px rgba(227, 177, 62, 0.28), 0 4px 16px rgba(0, 0, 0, 0.3);
     }
 
     .search-clear-btn {
       position: absolute;
       right: 12px;
-      background: none;
-      border: none;
+      width: 26px;
+      height: 26px;
+      background: rgba(227, 177, 62, 0.12);
+      border: 1px solid rgba(227, 177, 62, 0.25);
+      border-radius: 50%;
       color: var(--cream-dim);
       cursor: pointer;
       display: none;
-      font-size: 16px;
-      padding: 4px;
+      font-size: 13px;
       line-height: 1;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
     }
 
-    .search-clear-btn:hover {
+    .search-clear-btn:hover,
+    .search-clear-btn:active {
+      background: rgba(227, 177, 62, 0.28);
       color: var(--gold);
+      border-color: var(--gold);
     }
 
     /* ===== STICKY CATEGORY NAV ===== */
@@ -484,26 +546,25 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
     }
 
-    /* Subtle Pop-In Animation for Menu Items */
-    @keyframes menuItemPopIn {
+    /* Smooth Fade-In Animation for Menu Items */
+    @keyframes menuItemFadeIn {
       0% {
         opacity: 0;
-        transform: translateY(8px) scale(0.982);
-      }
-      65% {
-        opacity: 1;
-        transform: translateY(-1px) scale(1.004);
+        transform: translateY(8px);
       }
       100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
       }
     }
 
+    .item-row.item-fade-in,
+    .combo-row.item-fade-in,
+    .pizza-row.item-fade-in,
     .item-row.item-pop-in,
     .combo-row.item-pop-in,
     .pizza-row.item-pop-in {
-      animation: menuItemPopIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation: menuItemFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
       animation-delay: var(--pop-delay, 0ms);
       transform-origin: center left;
       will-change: transform, opacity;
@@ -550,55 +611,6 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       white-space: nowrap;
       flex-shrink: 0;
       font-size: 0.93rem;
-    }
-
-    /* Subtle Typing Text Reveal for Food Item Names & Prices */
-    .type-target {
-      display: inline-block;
-      vertical-align: baseline;
-      position: relative;
-    }
-
-    .item-name.type-target {
-      white-space: normal;
-      word-break: break-word;
-    }
-
-    .item-price.type-target {
-      white-space: nowrap;
-    }
-
-    .pizza-table td.col-price .type-target {
-      white-space: nowrap;
-    }
-
-    .type-char {
-      display: inline;
-      opacity: 0;
-      transition: opacity 0.04s ease-out;
-    }
-
-    .type-target.type-completed .type-char {
-      opacity: 1 !important;
-    }
-
-    .type-caret {
-      display: inline-block;
-      width: 1.5px;
-      height: 0.9em;
-      background-color: var(--gold);
-      margin-left: 1.5px;
-      vertical-align: -0.06em;
-      border-radius: 1px;
-      box-shadow: 0 0 5px rgba(227, 177, 62, 0.75);
-      animation: typeCaretPulse 0.3s ease-in-out infinite alternate;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    @keyframes typeCaretPulse {
-      from { opacity: 0.95; }
-      to { opacity: 0.18; }
     }
 
     /* Combo Row: Name + Price, with Description underneath */
@@ -949,6 +961,9 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
         opacity: 1 !important;
         transform: none !important;
       }
+      .item-row.item-fade-in,
+      .combo-row.item-fade-in,
+      .pizza-row.item-fade-in,
       .item-row.item-pop-in,
       .combo-row.item-pop-in,
       .pizza-row.item-pop-in {
@@ -960,12 +975,11 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
         animation: none !important;
         display: none !important;
       }
-      .type-char {
-        opacity: 1 !important;
-        transition: none !important;
-      }
-      .type-caret {
-        display: none !important;
+      .search-container:focus-within .search-icon,
+      .search-container.is-focused .search-icon,
+      .search-icon {
+        animation: none !important;
+        transform: none !important;
       }
     }
   </style>
@@ -1457,17 +1471,6 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       `).join('');
     }
 
-    // Helper to format text with character spans for progressive left-to-right typing
-    function formatTypingTarget(text, extraClass = '') {
-      const safeText = String(text);
-      const chars = safeText.split('').map(ch => {
-        const display = ch === ' ' ? '&nbsp;' : ch.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        return `<span class="type-char">${display}</span>`;
-      }).join('');
-      const cls = extraClass ? `type-target ${extraClass}` : 'type-target';
-      return `<span class="${cls}" data-full-text="${safeText.replace(/"/g, '&quot;')}" aria-label="${safeText.replace(/"/g, '&quot;')}">${chars}</span>`;
-    }
-
     // 2. Render Menu Sections and Items
     function renderMenuSections() {
       // Clear before search empty & reviews
@@ -1500,12 +1503,12 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
                 ${cat.pizzas.map(pizza => `
                   <tr class="pizza-row" data-search-name="${pizza.name.toLowerCase()}">
                     <td class="col-name">
-                      ${formatTypingTarget(pizza.name, 'item-name')}
+                      ${pizza.name}
                       ${pizza.note ? `<span class="pizza-note">${pizza.note}</span>` : ''}
                     </td>
-                    <td class="col-price">${formatTypingTarget(pizza.prices[0])}</td>
-                    <td class="col-price">${formatTypingTarget(pizza.prices[1])}</td>
-                    <td class="col-price">${formatTypingTarget(pizza.prices[2])}</td>
+                    <td class="col-price">${pizza.prices[0]}</td>
+                    <td class="col-price">${pizza.prices[1]}</td>
+                    <td class="col-price">${pizza.prices[2]}</td>
                   </tr>
                 `).join('')}
               </tbody>
@@ -1522,9 +1525,9 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
                 <div class="combo-row" data-search-name="${searchName}">
                   <div class="combo-main">
                     <span class="item-num">${numStr}</span>
-                    ${formatTypingTarget(item.name, 'item-name')}
+                    <span class="item-name">${item.name}</span>
                     <span class="item-dots"></span>
-                    ${formatTypingTarget(item.price, 'item-price')}
+                    <span class="item-price">${item.price}</span>
                   </div>
                   <div class="combo-desc">${item.desc}</div>
                 </div>
@@ -1533,9 +1536,9 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
               return `
                 <div class="item-row" data-search-name="${searchName}">
                   <span class="item-num">${numStr}</span>
-                  ${formatTypingTarget(item.name, 'item-name')}
+                  <span class="item-name">${item.name}</span>
                   <span class="item-dots"></span>
-                  ${formatTypingTarget(item.price, 'item-price')}
+                  <span class="item-price">${item.price}</span>
                 </div>
               `;
             }
@@ -1604,122 +1607,8 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
     }
 
     /* =========================================================================
-       INTERSECTION OBSERVER: REVEAL ON SCROLL & SUBTLE TYPING EFFECT
+       INTERSECTION OBSERVER: REVEAL ON SCROLL (FADE IN EFFECT)
        ========================================================================= */
-    let activeTypingTimers = [];
-    let hasInitialRevealed = false;
-
-    function finishAllTyping() {
-      activeTypingTimers.forEach(t => clearTimeout(t));
-      activeTypingTimers = [];
-      document.querySelectorAll('.type-caret').forEach(c => c.remove());
-      document.querySelectorAll('.type-char').forEach(c => {
-        c.style.opacity = '1';
-      });
-      document.querySelectorAll('.type-target').forEach(t => {
-        t.classList.add('type-completed');
-      });
-      document.querySelectorAll('.cat-section').forEach(s => {
-        s.dataset.typed = 'true';
-      });
-    }
-
-    function typeTarget(target, speedMs, onComplete) {
-      if (!target || target.classList.contains('type-completed')) {
-        if (onComplete) onComplete();
-        return;
-      }
-
-      const chars = target.querySelectorAll('.type-char');
-      if (chars.length === 0) {
-        target.classList.add('type-completed');
-        if (onComplete) onComplete();
-        return;
-      }
-
-      let caret = target.querySelector('.type-caret');
-      if (!caret) {
-        caret = document.createElement('span');
-        caret.className = 'type-caret';
-        caret.setAttribute('aria-hidden', 'true');
-        target.prepend(caret);
-      }
-
-      let idx = 0;
-      function step() {
-        if (idx < chars.length) {
-          const ch = chars[idx];
-          ch.style.opacity = '1';
-          ch.after(caret);
-          idx++;
-          const t = setTimeout(step, speedMs);
-          activeTypingTimers.push(t);
-        } else {
-          const finishTimer = setTimeout(() => {
-            if (caret && caret.parentNode) caret.remove();
-            target.classList.add('type-completed');
-            if (onComplete) onComplete();
-          }, 30);
-          activeTypingTimers.push(finishTimer);
-        }
-      }
-
-      const startTimer = setTimeout(step, speedMs);
-      activeTypingTimers.push(startTimer);
-    }
-
-    function typeSequence(targets, speedMs, callback) {
-      if (!targets || targets.length === 0) {
-        if (callback) callback();
-        return;
-      }
-      const current = targets[0];
-      typeTarget(current, speedMs, () => {
-        typeSequence(targets.slice(1), speedMs, callback);
-      });
-    }
-
-    function triggerSectionTyping(section) {
-      if (!section || section.dataset.typed === 'true') return;
-      section.dataset.typed = 'true';
-
-      // Check prefers-reduced-motion: if enabled, immediately display text without animation
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        section.querySelectorAll('.type-char').forEach(c => c.style.opacity = '1');
-        section.querySelectorAll('.type-target').forEach(t => t.classList.add('type-completed'));
-        return;
-      }
-
-      const rows = section.querySelectorAll('.item-row, .combo-row, .pizza-row');
-      const baseDelay = hasInitialRevealed ? 0 : 160;
-      hasInitialRevealed = true;
-
-      rows.forEach((row, rIdx) => {
-        // Stagger row start time for progressive reading flow down the menu section
-        const rowStartDelay = baseDelay + Math.min(rIdx * 65, 800);
-
-        const timer = setTimeout(() => {
-          if (row.classList.contains('pizza-row')) {
-            const nameTarget = row.querySelector('.col-name .type-target');
-            const priceTargets = Array.from(row.querySelectorAll('.col-price .type-target'));
-
-            typeTarget(nameTarget, 13, () => {
-              typeSequence(priceTargets, 13);
-            });
-          } else {
-            const nameTarget = row.querySelector('.item-name.type-target');
-            const priceTarget = row.querySelector('.item-price.type-target');
-
-            typeTarget(nameTarget, 13, () => {
-              typeTarget(priceTarget, 13);
-            });
-          }
-        }, rowStartDelay);
-
-        activeTypingTimers.push(timer);
-      });
-    }
-
     function setupScrollReveal() {
       const sections = document.querySelectorAll('.cat-section');
 
@@ -1728,11 +1617,8 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
         const items = section.querySelectorAll('.item-row, .combo-row, .pizza-row');
         items.forEach((item, idx) => {
           item.style.setProperty('--pop-delay', `${Math.min(idx * 24, 220)}ms`);
-          item.classList.add('item-pop-in');
+          item.classList.add('item-fade-in', 'item-pop-in');
         });
-
-        // Trigger progressive typing reveal for food item names and prices
-        triggerSectionTyping(section);
       }
 
       if (!('IntersectionObserver' in window)) {
@@ -1848,7 +1734,6 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       const catNav = document.getElementById('category-nav');
 
       function filterMenu() {
-        finishAllTyping();
         const query = searchInput.value.trim().toLowerCase();
         clearBtn.style.display = query.length > 0 ? 'block' : 'none';
 
@@ -1860,10 +1745,10 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
               const wasHidden = row.style.display === 'none';
               row.style.display = '';
               if (wasHidden) {
-                row.classList.remove('item-pop-in');
+                row.classList.remove('item-fade-in', 'item-pop-in');
                 void row.offsetWidth; // Force CSS animation restart
                 row.style.setProperty('--pop-delay', `${Math.min(idx * 18, 160)}ms`);
-                row.classList.add('item-pop-in');
+                row.classList.add('item-fade-in', 'item-pop-in');
               }
             });
           });
@@ -1889,14 +1774,14 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
               row.style.display = '';
               sectionMatches++;
 
-              // Trigger subtle pop-in animation on matching filtered items
-              row.classList.remove('item-pop-in');
+              // Trigger smooth fade-in animation on matching filtered items
+              row.classList.remove('item-fade-in', 'item-pop-in');
               void row.offsetWidth; // Force CSS animation restart
               row.style.setProperty('--pop-delay', `${Math.min(sectionMatches * 20, 180)}ms`);
-              row.classList.add('item-pop-in');
+              row.classList.add('item-fade-in', 'item-pop-in');
             } else {
               row.style.display = 'none';
-              row.classList.remove('item-pop-in');
+              row.classList.remove('item-fade-in', 'item-pop-in');
             }
           });
 
@@ -1912,6 +1797,16 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
         searchEmpty.style.display = totalMatches === 0 ? 'block' : 'none';
         updateStickyMetrics();
       }
+
+      const searchContainer = document.querySelector('.search-container');
+
+      searchInput.addEventListener('focus', () => {
+        if (searchContainer) searchContainer.classList.add('is-focused');
+      });
+
+      searchInput.addEventListener('blur', () => {
+        if (searchContainer) searchContainer.classList.remove('is-focused');
+      });
 
       searchInput.addEventListener('input', filterMenu);
 
