@@ -114,25 +114,44 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       top: 0;
       left: 0;
       width: 100%;
-      height: 0;
+      height: 100%;
       pointer-events: none !important;
       z-index: 99990;
+      overflow: hidden;
     }
 
     .food-shower-item {
-      position: fixed;
-      top: -140px;
+      position: absolute;
+      top: -100px;
       left: 0;
       pointer-events: none !important;
       user-select: none;
       -webkit-user-select: none;
-      will-change: transform, opacity;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      perspective: 1000px;
       animation-name: foodFallDownward;
-      animation-timing-function: cubic-bezier(0.28, 0.45, 0.38, 0.95);
+      animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
       animation-fill-mode: forwards;
       display: flex;
       align-items: center;
       justify-content: center;
+      line-height: 1;
+    }
+
+    .food-shower-item .food-emoji {
+      display: inline-block;
+      font-size: var(--item-font-size, 44px);
+      line-height: 1;
+      font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+      pointer-events: none !important;
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
 
     .food-shower-item img,
@@ -141,23 +160,23 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       height: 100%;
       object-fit: contain;
       display: block;
-      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.45));
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
       pointer-events: none !important;
     }
 
     @keyframes foodFallDownward {
       0% {
-        transform: translate3d(var(--start-x), -140px, 0) rotate(var(--rot-start));
+        transform: translate3d(var(--start-x), -100px, 0) rotate(var(--rot-start));
         opacity: 0;
       }
-      6% {
-        opacity: var(--item-opacity, 1);
+      4% {
+        opacity: 1;
       }
-      88% {
-        opacity: var(--item-opacity, 1);
+      92% {
+        opacity: 1;
       }
       100% {
-        transform: translate3d(var(--end-x), calc(100vh + 160px), 0) rotate(var(--rot-end));
+        transform: translate3d(var(--end-x), calc(100vh + 120px), 0) rotate(var(--rot-end));
         opacity: 0;
       }
     }
@@ -196,8 +215,9 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
     }
 
     .brand-logo {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
       animation: logoGlow 3.6s infinite ease-in-out;
     }
 
@@ -992,8 +1012,10 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
     <!-- 1. HEADER (Sticky top) -->
     <header class="top" id="app-header">
       <div class="brand-logo-wrap">
-        <!-- Monogram Logo: Crown & 'Q' with Gold Gradient -->
-        <svg class="brand-logo" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Queen Palace Logo">
+        <!-- Exact uploaded PNG logo placed directly into header -->
+        <img src="/assets/logo.png" alt="Queen Palace Restaurant Logo" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <!-- Monogram Logo: Crown & 'Q' with Gold Gradient (fallback if logo.png is pending) -->
+        <svg class="brand-logo" style="display:none;" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Queen Palace Logo">
           <defs>
             <linearGradient id="crownGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="#f0cf8a"/>
@@ -1843,74 +1865,152 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
     }
 
     /* =========================================================================
-       FOOD-FALLING ENTRANCE SHOWER ANIMATION
+       FOOD-FALLING ENTRANCE SHOWER ANIMATION (EMOJIS)
        ========================================================================= */
     const FOOD_ITEMS_CONFIG = [
       {
-        type: 'burger',
+        emoji: '🍔',
         name: 'Gourmet Burger',
-        src: '/assets/food/burger.svg',
-        rotRange: [-10, 10],
-        driftRange: [-14, 14],
-        durationRange: [3.4, 4.2],
-        sizeDesktop: [76, 92],
-        sizeMobile: [52, 64],
-        svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%" fill="none"><defs><linearGradient id="bbt" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="#f59e0b"/><stop offset="35%" stop-color="#d97706"/><stop offset="100%" stop-color="#b45309"/></linearGradient><linearGradient id="bbb" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="#d97706"/><stop offset="100%" stop-color="#92400e"/></linearGradient><linearGradient id="bp" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#451a03"/><stop offset="40%" stop-color="#5c2406"/><stop offset="100%" stop-color="#2d1002"/></linearGradient><linearGradient id="bc" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fde047"/><stop offset="40%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#f59e0b"/></linearGradient><linearGradient id="bt" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ef4444"/><stop offset="60%" stop-color="#dc2626"/><stop offset="100%" stop-color="#991b1b"/></linearGradient><linearGradient id="bl" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#4ade80"/><stop offset="50%" stop-color="#22c55e"/><stop offset="100%" stop-color="#16a34a"/></linearGradient></defs><g><path d="M22 84 C22 93 35 98 60 98 C85 98 98 93 98 84 C98 81 85 81 60 81 C35 81 22 81 22 84 Z" fill="url(#bbb)"/><ellipse cx="60" cy="85" rx="34" ry="2" fill="#fbbf24" opacity="0.4"/><rect x="18" y="70" width="84" height="15" rx="7.5" fill="url(#bp)"/><path d="M26 73 L33 82 M42 73 L49 82 M58 73 L65 82 M74 73 L81 82 M90 73 L94 78" stroke="#250d02" stroke-width="2" stroke-linecap="round" opacity="0.7"/><path d="M19 69 L101 69 L97 76 L82 72 L72 82 L62 72 L50 78 L40 72 L26 80 Z" fill="url(#bc)"/><path d="M24 70 L96 70" stroke="#fef08a" stroke-width="1.5" opacity="0.8"/><ellipse cx="42" cy="62" rx="22" ry="7" fill="url(#bt)"/><ellipse cx="78" cy="62" rx="22" ry="7" fill="url(#bt)"/><circle cx="39" cy="62" r="1.2" fill="#fef08a"/><circle cx="75" cy="62" r="1.2" fill="#fef08a"/><path d="M14 58 C16 53 22 55 25 58 C29 52 35 53 38 58 C42 51 49 53 52 58 C56 50 64 52 68 58 C72 51 79 53 82 58 C86 52 92 53 95 58 C99 53 105 55 106 60 C104 64 98 64 95 62 C90 65 82 64 80 61 C75 65 67 64 64 61 C59 65 51 64 48 61 C43 65 35 64 32 61 C28 65 20 64 16 61 C13 60 13 58 14 58 Z" fill="url(#bl)"/><path d="M18 54 C18 28 36 20 60 20 C84 20 102 28 102 54 C102 57 98 58 60 58 C22 58 18 57 18 54 Z" fill="url(#bbt)"/><path d="M30 33 C38 25 54 23 68 25 C58 26 44 29 38 36 C34 40 31 43 30 33 Z" fill="#fef08a" opacity="0.45"/><g fill="#fef3c7" stroke="#b45309" stroke-width="0.5"><ellipse cx="38" cy="36" rx="2.5" ry="1.2" transform="rotate(-25 38 36)"/><ellipse cx="48" cy="29" rx="2.4" ry="1.2" transform="rotate(15 48 29)"/><ellipse cx="62" cy="27" rx="2.5" ry="1.2" transform="rotate(-10 62 27)"/><ellipse cx="74" cy="32" rx="2.3" ry="1.2" transform="rotate(30 74 32)"/><ellipse cx="84" cy="40" rx="2.5" ry="1.2" transform="rotate(-15 84 40)"/><ellipse cx="56" cy="36" rx="2.4" ry="1.2" transform="rotate(40 56 36)"/><ellipse cx="44" cy="44" rx="2.3" ry="1.2" transform="rotate(-30 44 44)"/><ellipse cx="68" cy="42" rx="2.5" ry="1.2" transform="rotate(20 68 42)"/><ellipse cx="79" cy="48" rx="2.2" ry="1.2" transform="rotate(-40 79 48)"/><ellipse cx="58" cy="48" rx="2.4" ry="1.2" transform="rotate(5 58 48)"/></g></g></svg>`
+        rotRange: [-14, 14],
+        driftRange: [-12, 12],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 46,
+        sizeMobile: 36
       },
       {
-        type: 'pizza',
-        name: 'Artisan Pizza Slice',
-        src: '/assets/food/pizza.svg',
-        rotRange: [-16, 16],
-        driftRange: [-18, 18],
-        durationRange: [3.3, 4.0],
-        sizeDesktop: [74, 90],
-        sizeMobile: [50, 62],
-        svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%" fill="none"><defs><linearGradient id="pcr" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f59e0b"/><stop offset="50%" stop-color="#d97706"/><stop offset="100%" stop-color="#92400e"/></linearGradient><linearGradient id="pch" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="#fef08a"/><stop offset="40%" stop-color="#fde047"/><stop offset="85%" stop-color="#eab308"/><stop offset="100%" stop-color="#ca8a04"/></linearGradient><linearGradient id="psa" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ef4444"/><stop offset="100%" stop-color="#991b1b"/></linearGradient><radialGradient id="ppe" cx="40%" cy="40%" r="60%"><stop offset="0%" stop-color="#dc2626"/><stop offset="65%" stop-color="#b91c1c"/><stop offset="100%" stop-color="#7f1d1d"/></radialGradient></defs><g><path d="M18 24 Q60 10 102 24 C106 31 103 36 96 36 Q60 25 24 36 C17 36 14 31 18 24 Z" fill="url(#pcr)"/><ellipse cx="38" cy="22" rx="4" ry="2.2" fill="#78350f" opacity="0.6"/><ellipse cx="62" cy="18" rx="5" ry="2.5" fill="#78350f" opacity="0.7"/><ellipse cx="84" cy="22" rx="3.5" ry="2" fill="#78350f" opacity="0.6"/><path d="M22 34 Q60 23 98 34 L62 106 Q60 109 58 106 Z" fill="url(#psa)"/><path d="M24 35 Q60 25 96 35 L61 104 C60 107 58 105 57 102 L24 35 Z" fill="url(#pch)"/><circle cx="44" cy="45" r="10.5" fill="url(#ppe)"/><circle cx="75" cy="50" r="11" fill="url(#ppe)"/><circle cx="58" cy="74" r="10" fill="url(#ppe)"/><path d="M56 56 C53 50 60 48 64 50 C67 52 66 58 62 60 C58 60 56 58 56 56 Z" fill="#22c55e"/><path d="M42 82 C39 78 44 75 48 77 C50 79 49 84 46 85 C43 85 41 84 42 82 Z" fill="#16a34a"/><path d="M57 102 Q59 110 60 114 Q61 110 62 104" fill="#fde047" stroke="#eab308" stroke-width="0.8"/></g></svg>`
-      },
-      {
-        type: 'chicken',
-        name: 'Crispy Fried Chicken Drumstick',
-        src: '/assets/food/chicken.svg',
+        emoji: '🍗',
+        name: 'Crispy Chicken',
         rotRange: [-18, 18],
-        driftRange: [-16, 16],
-        durationRange: [3.3, 4.1],
-        sizeDesktop: [76, 92],
-        sizeMobile: [52, 66],
-        svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%" fill="none"><defs><linearGradient id="crustGrad" x1="25%" y1="15%" x2="85%" y2="85%"><stop offset="0%" stop-color="#fcd34d"/><stop offset="18%" stop-color="#f59e0b"/><stop offset="45%" stop-color="#d97706"/><stop offset="75%" stop-color="#b45309"/><stop offset="100%" stop-color="#78350f"/></linearGradient><linearGradient id="crustHighlight" x1="30%" y1="10%" x2="80%" y2="60%"><stop offset="0%" stop-color="#fef08a" stop-opacity="0.95"/><stop offset="35%" stop-color="#fde047" stop-opacity="0.65"/><stop offset="70%" stop-color="#fbbf24" stop-opacity="0.2"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></linearGradient><radialGradient id="crustDepth" cx="68%" cy="65%" r="55%"><stop offset="0%" stop-color="#78350f" stop-opacity="0"/><stop offset="60%" stop-color="#78350f" stop-opacity="0.4"/><stop offset="100%" stop-color="#451a03" stop-opacity="0.85"/></radialGradient><linearGradient id="boneGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#f8fafc"/><stop offset="85%" stop-color="#e2e8f0"/><stop offset="100%" stop-color="#cbd5e1"/></linearGradient><linearGradient id="boneShadow" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#cbd5e1" stop-opacity="0"/><stop offset="100%" stop-color="#94a3b8" stop-opacity="0.75"/></linearGradient></defs><g><path d="M25 87 L48 64 L56 72 L33 95 Z" fill="url(#boneGrad)"/><path d="M25 87 L48 64 L56 72 L33 95 Z" fill="url(#boneShadow)"/><circle cx="21" cy="85" r="9" fill="url(#boneGrad)"/><circle cx="21" cy="85" r="9" fill="url(#boneShadow)"/><circle cx="31" cy="95" r="9" fill="url(#boneGrad)"/><circle cx="31" cy="95" r="9" fill="url(#boneShadow)"/><path d="M15 80 C 13 86 17 93 23 97 C 28 101 35 102 39 98 C 42 94 40 88 35 84 C 30 80 23 77 15 80 Z" fill="url(#boneGrad)" opacity="0.6"/><ellipse cx="19" cy="83" rx="4" ry="2.5" fill="#ffffff" transform="rotate(-30 19 83)"/><ellipse cx="29" cy="93" rx="4" ry="2.5" fill="#ffffff" transform="rotate(-30 29 93)"/><path d="M42 66 C 40 60 47 56 52 61 C 56 57 62 61 60 67 C 62 72 57 76 52 75 C 46 76 41 71 42 66 Z" fill="#9a3412"/><path d="M43 67 C 44 63 48 61 51 63 C 54 60 58 63 57 67 C 58 70 55 73 51 72 C 47 73 43 70 43 67 Z" fill="#b45309"/><path d="M 48 68 C 42 56 46 38 58 26 C 72 12 92 14 103 27 C 113 40 112 60 99 75 C 86 89 66 89 54 80 C 47 75 46 72 48 68 Z" fill="url(#crustGrad)"/><path d="M 48 68 C 42 56 46 38 58 26 C 72 12 92 14 103 27 C 113 40 112 60 99 75 C 86 89 66 89 54 80 C 47 75 46 72 48 68 Z" fill="url(#crustDepth)"/><path d="M 58 30 C 70 18 88 19 98 30 C 105 38 105 50 98 62 C 92 50 82 36 67 33 C 62 32 59 31 58 30 Z" fill="url(#crustHighlight)"/><ellipse cx="74" cy="34" rx="8" ry="4.5" fill="#fde047" opacity="0.65" transform="rotate(-15 74 34)"/><ellipse cx="90" cy="42" rx="7.5" ry="5" fill="#fcd34d" opacity="0.6" transform="rotate(25 90 42)"/><ellipse cx="64" cy="46" rx="7" ry="4.2" fill="#fbbf24" opacity="0.5" transform="rotate(-35 64 46)"/><ellipse cx="83" cy="58" rx="9" ry="5.5" fill="#b45309" opacity="0.75" transform="rotate(20 83 58)"/><ellipse cx="69" cy="68" rx="8" ry="4.5" fill="#9a3412" opacity="0.7" transform="rotate(-20 69 68)"/><ellipse cx="96" cy="56" rx="6.5" ry="4" fill="#b45309" opacity="0.65" transform="rotate(45 96 56)"/><circle cx="68" cy="26" r="2.2" fill="#fef08a" opacity="0.85"/><circle cx="82" cy="27" r="2" fill="#fef08a" opacity="0.9"/><circle cx="97" cy="37" r="2.3" fill="#fef08a" opacity="0.85"/><circle cx="60" cy="38" r="1.8" fill="#fef08a" opacity="0.8"/><circle cx="76" cy="45" r="2.2" fill="#fef08a" opacity="0.75"/><circle cx="88" cy="50" r="2" fill="#fef08a" opacity="0.8"/><circle cx="60" cy="56" r="1.8" fill="#fde047" opacity="0.75"/><circle cx="78" cy="71" r="1.9" fill="#fde047" opacity="0.7"/><circle cx="62" cy="32" r="1.6" fill="#78350f"/><circle cx="76" cy="24" r="1.8" fill="#451a03"/><circle cx="89" cy="31" r="1.7" fill="#78350f"/><circle cx="102" cy="46" r="1.8" fill="#451a03"/><circle cx="71" cy="40" r="1.7" fill="#78350f"/><circle cx="84" cy="46" r="1.5" fill="#451a03"/><circle cx="94" cy="64" r="1.7" fill="#451a03"/><circle cx="76" cy="62" r="1.8" fill="#78350f"/><circle cx="62" cy="66" r="1.6" fill="#451a03"/><circle cx="53" cy="50" r="1.5" fill="#78350f"/><circle cx="86" cy="74" r="1.6" fill="#451a03"/><path d="M 54 28 C 68 14 90 15 101 28 C 109 37 109 51 103 62" stroke="#fef08a" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.8"/></g></svg>`
+        driftRange: [-14, 14],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 46,
+        sizeMobile: 36
       },
       {
-        type: 'drink',
-        name: 'Chilled Fruit Juice',
-        src: '/assets/food/drink.svg',
-        rotRange: [-5, 5],
+        emoji: '🍕',
+        name: 'Pizza Slice',
+        rotRange: [-16, 16],
+        driftRange: [-12, 12],
+        durationRange: [3.3, 3.9],
+        sizeDesktop: 46,
+        sizeMobile: 36
+      },
+      {
+        emoji: '🍟',
+        name: 'French Fries',
+        rotRange: [-12, 12],
+        driftRange: [-12, 12],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 46,
+        sizeMobile: 36
+      },
+      {
+        emoji: '☕',
+        name: 'Hot Cha & Coffee',
+        rotRange: [-8, 8],
         driftRange: [-10, 10],
-        durationRange: [3.5, 4.3],
-        sizeDesktop: [68, 82],
-        sizeMobile: [46, 56],
-        svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%" fill="none"><defs><linearGradient id="djl" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fb923c"/><stop offset="50%" stop-color="#f97316"/><stop offset="100%" stop-color="#ea580c"/></linearGradient><linearGradient id="dgb" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/><stop offset="15%" stop-color="#ffffff" stop-opacity="0.08"/><stop offset="85%" stop-color="#ffffff" stop-opacity="0.08"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0.45"/></linearGradient><pattern id="dss" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="8" stroke="#ef4444" stroke-width="4"/><line x1="4" y1="0" x2="4" y2="8" stroke="#ffffff" stroke-width="4"/></pattern></defs><g><path d="M68 60 L86 16 L80 14 L62 58" fill="url(#dss)"/><path d="M38 100 L40 106 C40 109 50 110 60 110 C70 110 80 109 80 106 L82 100 Z" fill="#ffffff" opacity="0.3"/><path d="M33 46 Q60 49 87 46 L80 102 C80 106 70 108 60 108 C50 108 40 106 40 102 L33 46 Z" fill="url(#djl)"/><ellipse cx="60" cy="46" rx="27" ry="4" fill="#fdba74"/><g transform="translate(48, 42) rotate(12)"><polygon points="0,6 7,0 19,3 12,9" fill="#ffffff" opacity="0.85"/><polygon points="0,6 12,9 12,19 0,16" fill="#e0f2fe" opacity="0.8"/><polygon points="12,9 19,3 19,13 12,19" fill="#bae6fd" opacity="0.8"/></g><g transform="translate(64, 52) rotate(-18)"><polygon points="0,5 6,0 16,2 10,7" fill="#ffffff" opacity="0.85"/><polygon points="0,5 10,7 10,16 0,14" fill="#e0f2fe" opacity="0.8"/></g><g transform="translate(24, 28) rotate(-25)"><circle cx="16" cy="16" r="16" fill="#84cc16"/><circle cx="16" cy="16" r="14.5" fill="#facc15"/><circle cx="16" cy="16" r="13" fill="#ffffff" opacity="0.85"/><circle cx="16" cy="16" r="12" fill="#ea580c"/></g><path d="M30 38 L38 102 C38 107 48 109 60 109 C72 109 82 107 82 102 L90 38 C90 34 80 32 60 32 C40 32 30 34 30 38 Z" fill="url(#dgb)" stroke="#ffffff" stroke-width="1.2" stroke-opacity="0.6"/><ellipse cx="60" cy="38" rx="30" ry="4.5" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.75"/><path d="M35 44 L40 96" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.55"/></g></svg>`
+        durationRange: [3.5, 4.1],
+        sizeDesktop: 44,
+        sizeMobile: 34
       },
       {
-        type: 'mint',
-        name: 'Fresh Mint Leaf',
-        src: '/assets/food/mint.svg',
-        rotRange: [-26, 26],
-        driftRange: [-26, 26],
-        durationRange: [4.0, 5.0],
-        sizeDesktop: [48, 62],
-        sizeMobile: [36, 46],
-        svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%" fill="none"><defs><linearGradient id="mlg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#86efac"/><stop offset="35%" stop-color="#22c55e"/><stop offset="80%" stop-color="#15803d"/><stop offset="100%" stop-color="#0f5127"/></linearGradient><linearGradient id="mlg2" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#4ade80"/><stop offset="45%" stop-color="#16a34a"/><stop offset="100%" stop-color="#14532d"/></linearGradient></defs><g><g transform="translate(18, 22) rotate(-22)"><path d="M48 68 C38 60 30 52 26 44 C24 40 26 38 29 40 C26 35 29 33 33 36 C30 30 35 28 39 31 C38 25 43 23 48 26 C47 20 53 18 58 22 C59 16 66 15 70 19 C71 13 78 13 82 17 C85 22 84 28 82 34 C85 38 82 43 78 47 C79 53 74 58 70 61 C67 65 60 67 48 68 Z" fill="url(#mlg2)"/></g><path d="M46 98 Q54 84 58 68" stroke="#15803d" stroke-width="3" stroke-linecap="round"/><g><path d="M56 78 C52 74 46 72 44 67 C42 63 46 62 48 64 C45 59 49 57 52 60 C50 54 56 52 60 55 C59 48 65 47 70 51 C70 44 77 43 82 47 C84 41 91 42 96 46 C98 39 105 40 108 44 C110 49 108 55 104 59 C107 63 103 68 99 71 C101 76 96 80 91 82 C92 86 86 89 81 89 C78 92 71 92 68 89 C64 91 58 87 56 78 Z" fill="url(#mlg1)"/><path d="M56 78 Q78 68 108 44" stroke="#bbf7d0" stroke-width="2" stroke-linecap="round"/><path d="M64 74 Q60 66 54 66 M72 70 Q66 61 62 61 M81 65 Q74 55 71 56" stroke="#bbf7d0" stroke-width="1.1" stroke-linecap="round" opacity="0.7"/><path d="M66 73 Q72 79 78 79 M76 68 Q83 74 88 73 M86 63 Q93 67 97 66" stroke="#bbf7d0" stroke-width="1.1" stroke-linecap="round" opacity="0.7"/></g><ellipse cx="80" cy="58" rx="3.5" ry="2.5" fill="#ffffff" opacity="0.85" transform="rotate(-15 80 58)"/><circle cx="68" cy="74" r="2" fill="#ffffff" opacity="0.8"/></g></svg>`
+        emoji: '🧃',
+        name: 'Fruit Juice Box',
+        rotRange: [-10, 10],
+        driftRange: [-10, 10],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 44,
+        sizeMobile: 34
       },
       {
-        type: 'icecream',
-        name: 'Waffle Cone Ice Cream',
-        src: '/assets/food/icecream.svg',
-        rotRange: [-4, 4],
-        driftRange: [-8, 8],
-        durationRange: [3.4, 4.2],
-        sizeDesktop: [70, 84],
-        sizeMobile: [48, 60],
-        svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%" fill="none"><defs><linearGradient id="icwc" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f59e0b"/><stop offset="45%" stop-color="#d97706"/><stop offset="100%" stop-color="#92400e"/></linearGradient><linearGradient id="icss" x1="30%" y1="0%" x2="70%" y2="100%"><stop offset="0%" stop-color="#fda4af"/><stop offset="45%" stop-color="#f43f5e"/><stop offset="90%" stop-color="#be123c"/></linearGradient><linearGradient id="icvs" x1="30%" y1="0%" x2="70%" y2="100%"><stop offset="0%" stop-color="#fef9c3"/><stop offset="50%" stop-color="#fef08a"/><stop offset="100%" stop-color="#eab308"/></linearGradient><linearGradient id="iccf" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#582108"/><stop offset="50%" stop-color="#3d1403"/><stop offset="100%" stop-color="#240c02"/></linearGradient></defs><g><path d="M36 68 L60 114 L84 68 Z" fill="url(#icwc)"/><g stroke="#78350f" stroke-width="1.2" opacity="0.65"><line x1="41" y1="72" x2="63" y2="108"/><line x1="47" y1="72" x2="68" y2="98"/><line x1="53" y1="72" x2="73" y2="88"/><line x1="79" y1="72" x2="57" y2="108"/><line x1="73" y1="72" x2="52" y2="98"/><line x1="67" y1="72" x2="47" y2="88"/></g><ellipse cx="60" cy="68" rx="24" ry="4" fill="#78350f" opacity="0.5"/><path d="M30 64 C30 52 42 48 60 48 C78 48 90 52 90 64 C90 71 84 73 78 70 C74 74 68 73 64 70 C60 74 54 73 50 70 C44 73 38 72 34 68 C31 67 30 65 30 64 Z" fill="url(#icvs)"/><path d="M34 46 C34 26 44 20 60 20 C76 20 86 26 86 46 C86 53 82 56 76 54 C70 58 64 56 60 53 C56 57 48 56 44 53 C38 56 34 52 34 46 Z" fill="url(#icss)"/><path d="M46 25 C52 26 56 30 58 35 C60 42 58 48 57 52 C56 55 58 58 61 58 C63 58 64 55 64 50 C64 42 66 36 70 32 C74 28 78 28 80 32 C82 36 82 42 81 48 C81 53 84 55 86 52 C87 48 88 40 86 34 C85 28 80 24 74 23 C68 22 60 21 54 22 C48 23 46 25 46 25 Z" fill="url(#iccf)"/><path d="M60 16 C60 8 72 2 78 2" stroke="#582108" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="60" cy="18" r="7.5" fill="#dc2626"/><ellipse cx="58" cy="15.5" rx="2.5" ry="1.4" fill="#ffffff" opacity="0.85"/></g></svg>`
+        emoji: '🍮',
+        name: 'Custard Dessert',
+        rotRange: [-8, 8],
+        driftRange: [-10, 10],
+        durationRange: [3.5, 4.1],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🥗',
+        name: 'Fresh Salad',
+        rotRange: [-14, 14],
+        driftRange: [-12, 12],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 46,
+        sizeMobile: 36
+      },
+      {
+        emoji: '🥘',
+        name: 'Biriyani & Curry Pan',
+        rotRange: [-10, 10],
+        driftRange: [-12, 12],
+        durationRange: [3.3, 3.9],
+        sizeDesktop: 46,
+        sizeMobile: 36
+      },
+      {
+        emoji: '🧁',
+        name: 'Cupcake Sweet',
+        rotRange: [-12, 12],
+        driftRange: [-10, 10],
+        durationRange: [3.5, 4.1],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🧇',
+        name: 'Waffle Dessert',
+        rotRange: [-14, 14],
+        driftRange: [-12, 12],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🌯',
+        name: 'Shawarma & Wrap',
+        rotRange: [-16, 16],
+        driftRange: [-12, 12],
+        durationRange: [3.3, 3.9],
+        sizeDesktop: 46,
+        sizeMobile: 36
+      },
+      {
+        emoji: '🥡',
+        name: 'Meatbox Takeout',
+        rotRange: [-10, 10],
+        driftRange: [-10, 10],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🧋',
+        name: 'Boba & Shake',
+        rotRange: [-8, 8],
+        driftRange: [-10, 10],
+        durationRange: [3.5, 4.1],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🍿',
+        name: 'Popcorn Snack',
+        rotRange: [-14, 14],
+        driftRange: [-12, 12],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🧂',
+        name: 'Salt & Spice',
+        rotRange: [-12, 12],
+        driftRange: [-10, 10],
+        durationRange: [3.5, 4.2],
+        sizeDesktop: 40,
+        sizeMobile: 32
       }
     ];
 
@@ -1947,17 +2047,37 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       document.body.appendChild(overlay);
 
       const isMobile = window.innerWidth < 640;
-      // Staggered spawning: mobile gets slightly fewer items to avoid crowding
-      const spawnIntervalMs = isMobile ? 280 : 180;
-      const totalSpawnDurationMs = 4500; // Continuous spawning for ~4.5 seconds
-      const startTime = Date.now();
+
+      // Create a deck where every emoji appears EXACTLY TWICE (16 emojis x 2 = 32 items)
+      // Shuffle wave 1 and wave 2 separately with Fisher-Yates so each emoji appears once in wave 1 and once in wave 2,
+      // guaranteeing spacing and preventing immediate repeats.
+      function shuffleArray(arr) {
+        const copy = [...arr];
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      const wave1 = shuffleArray(FOOD_ITEMS_CONFIG);
+      const wave2 = shuffleArray(FOOD_ITEMS_CONFIG);
+      // Ensure the first item of wave 2 is not the same as the last item of wave 1
+      if (wave1[wave1.length - 1].emoji === wave2[0].emoji && wave2.length > 1) {
+        [wave2[0], wave2[1]] = [wave2[1], wave2[0]];
+      }
+
+      const exactDeck = [...wave1, ...wave2]; // Exactly 32 items
+      const totalItems = exactDeck.length;
+
+      // Staggered spawning: ~170ms interval across ~5.5s so all 32 items fall smoothly
+      const spawnIntervalMs = isMobile ? 180 : 160;
       let activeItemsCount = 0;
-      let isSpawning = true;
+      let currentItemIndex = 0;
 
       // Zone-based distribution prevents items from clumping in the same column
-      const zoneCount = isMobile ? 6 : 12;
+      const zoneCount = isMobile ? 8 : 14;
       let lastZone = -1;
-      let lastTypeIndex = -1;
 
       function pickZone() {
         let zone;
@@ -1968,19 +2088,11 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
         return zone;
       }
 
-      function pickFood() {
-        let idx;
-        do {
-          idx = Math.floor(Math.random() * FOOD_ITEMS_CONFIG.length);
-        } while (idx === lastTypeIndex && FOOD_ITEMS_CONFIG.length > 1);
-        lastTypeIndex = idx;
-        return FOOD_ITEMS_CONFIG[idx];
-      }
-
       function spawnFoodItem() {
         if (!overlay || !overlay.parentNode) return;
+        if (currentItemIndex >= totalItems) return;
 
-        const config = pickFood();
+        const config = exactDeck[currentItemIndex++];
         const zone = pickZone();
         const zoneWidth = 88 / zoneCount;
         const startX = 6 + (zone * zoneWidth) + (Math.random() * (zoneWidth * 0.7));
@@ -1995,39 +2107,31 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
         const rotEnd = rotStart + rotDelta;
 
         // Size scaling
-        const sizeRange = isMobile ? config.sizeMobile : config.sizeDesktop;
-        const size = sizeRange[0] + Math.random() * (sizeRange[1] - sizeRange[0]);
+        const baseSize = isMobile ? config.sizeMobile : config.sizeDesktop;
+        const size = Math.round(baseSize * (0.92 + Math.random() * 0.16));
 
         // Speed / Duration
         const duration = config.durationRange[0] + Math.random() * (config.durationRange[1] - config.durationRange[0]);
 
-        // Opacity
-        const opacity = 0.92 + Math.random() * 0.08;
-
-        // STEP 4: Food illustrations begin appearing from ABOVE the top edge of the screen
+        // STEP 4: Food emojis begin appearing from ABOVE the top edge of the screen
         const item = document.createElement('div');
         item.className = 'food-shower-item';
-        item.style.width = `${Math.round(size)}px`;
-        item.style.height = `${Math.round(size)}px`;
+        item.style.width = `${size}px`;
+        item.style.height = `${size}px`;
+        item.style.setProperty('--item-font-size', `${size}px`);
         item.style.setProperty('--start-x', `${startX.toFixed(1)}vw`);
         item.style.setProperty('--end-x', `${endX.toFixed(1)}vw`);
         item.style.setProperty('--rot-start', `${rotStart.toFixed(1)}deg`);
         item.style.setProperty('--rot-end', `${rotEnd.toFixed(1)}deg`);
-        item.style.setProperty('--item-opacity', opacity.toFixed(2));
         item.style.animationDuration = `${duration.toFixed(2)}s`;
 
-        // Render clean image with inline SVG fallback
-        const img = document.createElement('img');
-        img.src = config.src;
-        img.alt = config.name;
-        img.draggable = false;
-        img.loading = 'eager';
-        img.onerror = () => {
-          // If image file path fails, inject the inline SVG directly
-          item.innerHTML = config.svg;
-        };
+        // Render emoji with clean accessible label
+        const emojiSpan = document.createElement('span');
+        emojiSpan.className = 'food-emoji';
+        emojiSpan.textContent = config.emoji;
+        emojiSpan.title = config.name;
 
-        item.appendChild(img);
+        item.appendChild(emojiSpan);
         overlay.appendChild(item);
         activeItemsCount++;
 
@@ -2035,8 +2139,8 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
         item.addEventListener('animationend', () => {
           item.remove();
           activeItemsCount--;
-          // STEP 8: When all items finish and spawning ended, remove overlay
-          if (!isSpawning && activeItemsCount <= 0 && overlay.parentNode) {
+          // STEP 8: When all 32 items finish falling, remove overlay container
+          if (currentItemIndex >= totalItems && activeItemsCount <= 0 && overlay.parentNode) {
             overlay.remove();
           }
         });
@@ -2045,24 +2149,21 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       // First item appears at 2.0s mark
       spawnFoodItem();
 
-      // STEP 7: New food continues appearing for approximately 4-5 seconds
+      // STEP 7: Spawn all 32 items in smooth sequence
       const spawnTimer = setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        if (elapsed >= totalSpawnDurationMs) {
+        if (currentItemIndex >= totalItems) {
           clearInterval(spawnTimer);
-          isSpawning = false;
           return;
         }
         spawnFoodItem();
       }, spawnIntervalMs);
 
-      // Failsafe cleanup: after ~10 seconds from start, clean up overlay if not already removed
+      // Failsafe cleanup: after ~12 seconds from start, clean up overlay if not already removed
       setTimeout(() => {
-        isSpawning = false;
         if (overlay && overlay.parentNode) {
           overlay.remove();
         }
-      }, totalSpawnDurationMs + 5500);
+      }, (totalItems * spawnIntervalMs) + 6000);
     }
 
     /* =========================================================================
