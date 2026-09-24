@@ -25,6 +25,11 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
    - To REMOVE a review: simply delete or comment out that review object { ... }.
    - To ADD a new review: copy an existing review object, paste it into the list,
      and update `author`, `initials`, `time`, `text`, and `likes`.
+
+4. HOW TO CHANGE WHATSAPP OR FACEBOOK LINKS:
+   - Search for `8801886929343` in this file and replace it with your WhatsApp number
+     in international format (country code first, without '+', spaces, or dashes).
+   - Search for `https://www.facebook.com/queenplacerestaurant/` to update the Facebook page link.
 ================================================================================
 -->
 <!doctype html>
@@ -108,7 +113,7 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       overflow-x: clip;
     }
 
-    /* ===== FOOD-FALLING ENTRANCE SHOWER ===== */
+    /* ===== FOOD-FALLING ENTRANCE SHOWER (SILKY SMOOTH GPU-OPTIMIZED) ===== */
     #food-shower-overlay {
       position: fixed;
       top: 0;
@@ -118,22 +123,23 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       pointer-events: none !important;
       z-index: 99990;
       overflow: hidden;
+      contain: strict;
     }
 
     .food-shower-item {
       position: absolute;
-      top: -100px;
-      left: 0;
+      top: 0;
+      left: var(--item-left, 50%);
       pointer-events: none !important;
       user-select: none;
       -webkit-user-select: none;
-      will-change: transform;
-      transform: translate3d(0, 0, 0);
+      contain: layout style paint;
+      will-change: transform, opacity;
+      transform: translate3d(0, -90px, 0) rotate(var(--rot-start, 0deg));
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      perspective: 1000px;
       animation-name: foodFallDownward;
-      animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      animation-timing-function: cubic-bezier(0.33, 0, 0.45, 1);
       animation-fill-mode: forwards;
       display: flex;
       align-items: center;
@@ -143,40 +149,30 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
 
     .food-shower-item .food-emoji {
       display: inline-block;
-      font-size: var(--item-font-size, 44px);
+      font-size: var(--item-font-size, 42px);
       line-height: 1;
       font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
-      text-rendering: optimizeLegibility;
+      text-rendering: optimizeSpeed;
       -webkit-font-smoothing: antialiased;
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
       pointer-events: none !important;
       transform: translateZ(0);
       backface-visibility: hidden;
     }
 
-    .food-shower-item img,
-    .food-shower-item svg {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-      pointer-events: none !important;
-    }
-
     @keyframes foodFallDownward {
       0% {
-        transform: translate3d(var(--start-x), -100px, 0) rotate(var(--rot-start));
+        transform: translate3d(0, -90px, 0) rotate(var(--rot-start, 0deg));
         opacity: 0;
       }
-      4% {
+      6% {
         opacity: 1;
       }
-      92% {
+      88% {
         opacity: 1;
       }
       100% {
-        transform: translate3d(var(--end-x), calc(100vh + 120px), 0) rotate(var(--rot-end));
+        transform: translate3d(var(--drift-x, 0px), calc(100vh + 100px), 0) rotate(var(--rot-end, 0deg));
         opacity: 0;
       }
     }
@@ -197,7 +193,8 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       padding: 10px 16px 10px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: center;
+      text-align: center;
       animation: headerFadeUp 0.6s ease-out;
     }
 
@@ -206,41 +203,19 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Logo & Glow */
-    .brand-logo-wrap {
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .brand-logo {
-      width: 46px;
-      height: 46px;
-      object-fit: contain;
-      animation: logoGlow 3.6s infinite ease-in-out;
-    }
-
-    @keyframes logoGlow {
-      0%, 100% {
-        filter: drop-shadow(0 0 3px rgba(227, 177, 62, 0.4));
-      }
-      50% {
-        filter: drop-shadow(0 0 10px rgba(227, 177, 62, 0.85));
-      }
-    }
-
     .brand-titles {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
 
     .brand-title {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.45rem;
+      font-size: 1.55rem;
       font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: 0.3px;
+      line-height: 1.15;
+      letter-spacing: 0.5px;
       background: linear-gradient(135deg, var(--gold-soft) 0%, var(--gold) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -248,12 +223,12 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
     }
 
     .brand-subtitle {
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       color: var(--cream-dim);
       font-style: italic;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      margin-top: 1px;
+      margin-top: 2px;
     }
 
     /* ===== SEARCH BAR ===== */
@@ -815,6 +790,42 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       flex-shrink: 0;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
       text-transform: uppercase;
+      overflow: hidden;
+    }
+
+    .fb-default-avatar {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 50%;
+    }
+
+    .review-item-clickable {
+      cursor: pointer;
+      border-radius: 14px;
+      transition: transform 0.15s ease;
+    }
+
+    .review-item-clickable:hover .review-bubble {
+      border-color: rgba(227, 177, 62, 0.45);
+      background-color: rgba(14, 52, 34, 0.95);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    .review-item-clickable:active {
+      transform: scale(0.99);
+    }
+
+    .review-avatar-link {
+      text-decoration: none;
+      cursor: pointer;
+      display: flex;
+      transition: transform 0.18s ease, filter 0.18s ease;
+    }
+
+    .review-avatar-link:hover {
+      transform: scale(1.08);
+      filter: brightness(1.08);
     }
 
     .review-bubble {
@@ -833,6 +844,20 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       font-size: 0.88rem;
       display: inline-block;
       margin-right: 6px;
+    }
+
+    .review-author-link {
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.15s ease;
+    }
+
+    .review-author-link:hover {
+      color: var(--gold-soft);
+      text-decoration: underline;
     }
 
     .review-verified {
@@ -900,6 +925,145 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       opacity: 0.8;
     }
 
+    /* ===== GOOGLE REVIEWS SECTION ===== */
+    .google-reviews-section {
+      margin-top: 22px;
+      margin-bottom: 24px;
+    }
+
+    .google-review-card {
+      background: linear-gradient(145deg, rgba(15, 56, 38, 0.65) 0%, rgba(10, 43, 28, 0.88) 100%);
+      border: 1px solid rgba(227, 177, 62, 0.25);
+      border-radius: 16px;
+      padding: 16px 16px 16px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 0 14px rgba(227, 177, 62, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .google-review-card::before {
+      content: '';
+      position: absolute;
+      top: -35px;
+      right: -35px;
+      width: 130px;
+      height: 130px;
+      background: radial-gradient(circle, rgba(227, 177, 62, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .google-review-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(227, 177, 62, 0.16);
+      flex-wrap: wrap;
+    }
+
+    .google-brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 0.2px;
+    }
+
+    .google-brand-badge .google-icon {
+      flex-shrink: 0;
+    }
+
+    .restaurant-loc-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--gold-soft);
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: rgba(227, 177, 62, 0.1);
+      padding: 3px 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(227, 177, 62, 0.2);
+    }
+
+    .google-review-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--gold-soft);
+      margin-bottom: 4px;
+      line-height: 1.35;
+    }
+
+    .google-review-prompt {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 15px;
+    }
+
+    .google-review-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      max-width: 320px;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+      color: #ffffff !important;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: 28px;
+      border: 1.5px solid var(--gold-soft);
+      box-shadow: 0 4px 16px rgba(216, 31, 46, 0.45), 0 0 12px rgba(240, 207, 138, 0.25);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      letter-spacing: 0.2px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .google-review-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(216, 31, 46, 0.55), 0 0 16px rgba(240, 207, 138, 0.4);
+      color: #ffffff;
+    }
+
+    .google-review-button:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 8px rgba(216, 31, 46, 0.4);
+    }
+
+    .google-review-button .btn-star-icon {
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    .google-review-button .btn-label {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .google-review-button .btn-arrow {
+      opacity: 0.85;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .google-review-button:hover .btn-arrow {
+      transform: translate(2px, -2px);
+      opacity: 1;
+    }
+
     /* ===== FLOATING BACK TO TOP BUTTON ===== */
     #back-to-top {
       position: fixed;
@@ -944,6 +1108,83 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       color: var(--cream-dim);
       font-size: 0.78rem;
       margin-top: auto;
+    }
+
+    .footer-actions-wrap,
+    .footer-whatsapp-wrap {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-action-btn,
+    .footer-whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      line-height: 1;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      text-decoration: none;
+      border: 1.5px solid rgba(255, 255, 255, 0.28);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.2s ease,
+                  filter 0.2s ease;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .footer-whatsapp-btn {
+      background: #25d366;
+      background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+      color: #ffffff !important;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35), 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .footer-whatsapp-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(37, 211, 102, 0.5);
+      filter: brightness(1.06);
+      color: #ffffff !important;
+    }
+
+    .footer-whatsapp-btn:active {
+      transform: scale(0.96);
+    }
+
+    .footer-facebook-btn {
+      background: #1877f2;
+      background: linear-gradient(135deg, #1877f2 0%, #0d5ec4 100%);
+      color: #ffffff !important;
+      box-shadow: 0 4px 14px rgba(24, 119, 242, 0.35), 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .footer-facebook-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(24, 119, 242, 0.5);
+      filter: brightness(1.06);
+      color: #ffffff !important;
+    }
+
+    .footer-facebook-btn:active {
+      transform: scale(0.96);
+    }
+
+    .facebook-icon,
+    .whatsapp-icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      vertical-align: middle;
     }
 
     .footer-title {
@@ -1011,35 +1252,6 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
 
     <!-- 1. HEADER (Sticky top) -->
     <header class="top" id="app-header">
-      <div class="brand-logo-wrap">
-        <!-- Exact uploaded PNG logo placed directly into header -->
-        <img src="/assets/logo.png" alt="Queen Palace Restaurant Logo" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-        <!-- Monogram Logo: Crown & 'Q' with Gold Gradient (fallback if logo.png is pending) -->
-        <svg class="brand-logo" style="display:none;" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Queen Palace Logo">
-          <defs>
-            <linearGradient id="crownGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#f0cf8a"/>
-              <stop offset="60%" stop-color="#e3b13e"/>
-              <stop offset="100%" stop-color="#b8831e"/>
-            </linearGradient>
-            <linearGradient id="qStrokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#f0cf8a"/>
-              <stop offset="70%" stop-color="#e3b13e"/>
-              <stop offset="100%" stop-color="#8a5a0d"/>
-            </linearGradient>
-          </defs>
-          <!-- Elegant Crest Circle -->
-          <circle cx="27" cy="27" r="24" stroke="url(#qStrokeGrad)" stroke-width="1.5" stroke-dasharray="3 2" fill="rgba(10, 43, 28, 0.4)"/>
-          <!-- Royal Crown on top -->
-          <path d="M16 22L19 12L24.5 17L27 9L29.5 17L35 12L38 22H16Z" fill="url(#crownGoldGrad)" stroke="#f0cf8a" stroke-width="0.8" stroke-linejoin="round"/>
-          <circle cx="19" cy="11" r="1.5" fill="#f0cf8a"/>
-          <circle cx="27" cy="8" r="1.8" fill="#f0cf8a"/>
-          <circle cx="35" cy="11" r="1.5" fill="#f0cf8a"/>
-          <rect x="17" y="22" width="20" height="2" rx="1" fill="#f0cf8a"/>
-          <!-- Serif 'Q' lettermark -->
-          <path d="M27 24C21.8 24 18 28.2 18 34.2C18 40.2 22 44.2 27 44.2C29.6 44.2 32 43.1 33.6 41.2L36.8 44.5L38.5 42.8L35.2 39.5C35.8 38 36.2 36.2 36.2 34.2C36.2 28.2 32.2 24 27 24ZM27 26.5C30.8 26.5 33.5 29.8 33.5 34.2C33.5 36.1 33 37.8 32.1 39.1L30.2 37.2L28.6 38.8L30.3 40.5C29.4 41.3 28.2 41.7 27 41.7C23.2 41.7 20.7 38.6 20.7 34.2C20.7 29.8 23.2 26.5 27 26.5Z" fill="url(#qStrokeGrad)"/>
-        </svg>
-      </div>
       <div class="brand-titles">
         <h1 class="brand-title">Queen Palace</h1>
         <span class="brand-subtitle">Restaurant</span>
@@ -1094,13 +1306,82 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
           <!-- Rendered dynamically from REVIEWS_DATA -->
         </div>
       </section>
+
+      <!-- 7. GOOGLE REVIEWS SECTION -->
+      <section class="google-reviews-section" id="google-reviews-section" aria-label="Google Reviews">
+        <div class="google-review-card">
+          <div class="google-review-header">
+            <div class="google-brand-badge">
+              <svg class="google-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.16 0 9.99 0 12s.45 3.84 1.25 5.42l4.03-3.15z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+              </svg>
+              <span>Google Reviews</span>
+            </div>
+            <div class="restaurant-loc-chip">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span>Queen Palace • Raozan</span>
+            </div>
+          </div>
+
+          <h2 class="google-review-title">আপনার অভিজ্ঞতা কেমন ছিল?</h2>
+          <p class="google-review-prompt">Google-এ Review দিন</p>
+
+          <!-- Prominent Leave a Google Review Button -->
+          <a
+            href="https://search.google.com/local/writereview?placeid=ChIJhSuxdgAtrTAR6WTKxWA71Wo"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="google-review-button"
+            id="google-review-action-btn"
+            aria-label="Leave a Google Review for Queen Palace Restaurant"
+          >
+            <span class="btn-star-icon">⭐</span>
+            <span class="btn-label">Leave a Google Review</span>
+            <svg class="btn-arrow" viewBox="0 0 20 20" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </section>
     </main>
 
-    <!-- 8. FLOATING BACK TO TOP BUTTON -->
+    <!-- 8. FLOATING ACTION BUTTONS -->
     <button id="back-to-top" aria-label="Back to top">↑</button>
 
     <!-- 9. FOOTER -->
     <footer class="site-footer">
+      <div class="footer-actions-wrap">
+        <a
+          href="https://wa.me/8801886929343?text=Hiii"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-action-btn footer-whatsapp-btn"
+          aria-label="Order or Chat on WhatsApp with Queen Palace Restaurant"
+        >
+          <svg class="whatsapp-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          WhatsApp
+        </a>
+        <a
+          href="https://www.facebook.com/queenplacerestaurant/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-action-btn footer-facebook-btn"
+          aria-label="Visit Queen Palace Restaurant on Facebook"
+        >
+          <svg class="facebook-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          Facebook
+        </a>
+      </div>
       <h3 class="footer-title">Queen Palace Restaurant</h3>
       <p class="footer-note">All prices are in Bangladeshi Taka (BDT) and subject to change without prior notice.</p>
       <p class="footer-hint">Tip: Tap any category chip above to quickly jump to that section.</p>
@@ -1413,9 +1694,10 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
     const REVIEWS_DATA = [
       {
         id: 1,
-        author: "Tariqul Islam",
-        initials: "TI",
-        avatarBg: "#d81f2e", // Deep red
+        author: "Samir Imran Sagar",
+        profileUrl: "https://m.facebook.com/samirimransagar/",
+        avatarType: "fb-default",
+        avatarBg: "#ced2d8",
         time: "2 hrs ago",
         text: "The Mutton Kacchi here is hands down one of the best in town! Meat was tender, flavorful, and the Borhani paired with it perfectly. Highly recommended!",
         likes: 18,
@@ -1585,35 +1867,79 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
 
     // 3. Render Facebook-Style Customer Reviews
     function renderReviews() {
-      reviewsListEl.innerHTML = REVIEWS_DATA.map(rev => `
-        <div class="review-item" id="review-${rev.id}">
-          <div class="review-avatar" style="background-color: ${rev.avatarBg};">${rev.initials}</div>
-          <div class="review-bubble">
-            <div>
-              <span class="review-author">${rev.author}</span>
-              <span class="review-verified">✓ Foodie Guest</span>
-            </div>
-            <p class="review-body">${rev.text}</p>
-            <div class="review-reactions-pill">
-              <span>👍 ❤️</span>
-              <span class="reaction-count" id="rev-count-${rev.id}">${rev.likes}</span>
+      reviewsListEl.innerHTML = REVIEWS_DATA.map(rev => {
+        const isClickable = Boolean(rev.profileUrl);
+
+        let avatarContent = '';
+        if (rev.avatarType === 'fb-default') {
+          avatarContent = `
+            <svg class="fb-default-avatar" viewBox="0 0 36 36" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="18" cy="18" r="18" fill="#ced2d8"/>
+              <circle cx="18" cy="12.5" r="5.5" fill="#ffffff"/>
+              <path d="M8.5 28.8a17.9 17.9 0 0 0 19 0c-.8-4.5-4.8-7.8-9.5-7.8s-8.7 3.3-9.5 7.8z" fill="#ffffff"/>
+            </svg>
+          `;
+        } else {
+          avatarContent = rev.initials;
+        }
+
+        const avatarMarkup = isClickable
+          ? `<a href="${rev.profileUrl}" target="_blank" rel="noopener noreferrer" class="review-avatar review-avatar-link" style="background-color: ${rev.avatarBg || '#ced2d8'};" aria-label="Visit ${rev.author} on Facebook">${avatarContent}</a>`
+          : `<div class="review-avatar" style="background-color: ${rev.avatarBg};">${avatarContent}</div>`;
+
+        const authorMarkup = isClickable
+          ? `<a href="${rev.profileUrl}" target="_blank" rel="noopener noreferrer" class="review-author review-author-link" title="Visit ${rev.author} on Facebook">${rev.author}</a>`
+          : `<span class="review-author">${rev.author}</span>`;
+
+        return `
+          <div class="review-item ${isClickable ? 'review-item-clickable' : ''}" id="review-${rev.id}" ${isClickable ? `data-profile-url="${rev.profileUrl}" role="link" tabindex="0" title="Click review to view ${rev.author} on Facebook"` : ''}>
+            ${avatarMarkup}
+            <div class="review-bubble">
+              <div>
+                ${authorMarkup}
+                <span class="review-verified">✓ Foodie Guest</span>
+              </div>
+              <p class="review-body">${rev.text}</p>
+              <div class="review-reactions-pill">
+                <span>👍 ❤️</span>
+                <span class="reaction-count" id="rev-count-${rev.id}">${rev.likes}</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="review-footer">
-          <button class="review-footer-btn like-btn ${rev.liked ? 'liked' : ''}" data-review-id="${rev.id}">
-            👍 Like
-          </button>
-          <span>·</span>
-          <button class="review-footer-btn reply-btn">Reply</button>
-          <span>·</span>
-          <span class="review-time">${rev.time}</span>
-        </div>
-      `).join('');
+          <div class="review-footer">
+            <button class="review-footer-btn like-btn ${rev.liked ? 'liked' : ''}" data-review-id="${rev.id}">
+              👍 Like
+            </button>
+            <span>·</span>
+            <button class="review-footer-btn reply-btn">Reply</button>
+            <span>·</span>
+            <span class="review-time">${rev.time}</span>
+          </div>
+        `;
+      }).join('');
+
+      // Add click handler for clickable review items (e.g. Samir Imran Sagar)
+      reviewsListEl.querySelectorAll('.review-item-clickable').forEach(item => {
+        const url = item.getAttribute('data-profile-url');
+        if (!url) return;
+
+        item.addEventListener('click', function(e) {
+          if (e.target.closest('a')) return; // native <a> link handles itself
+          window.open(url, '_blank', 'noopener,noreferrer');
+        });
+
+        item.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            window.open(url, '_blank', 'noopener,noreferrer');
+          }
+        });
+      });
 
       // Add Like Click Event Handlers
       reviewsListEl.querySelectorAll('.like-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
           const revId = parseInt(this.getAttribute('data-review-id'), 10);
           const review = REVIEWS_DATA.find(r => r.id === revId);
           if (!review) return;
@@ -2070,13 +2396,13 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       const exactDeck = [...wave1, ...wave2]; // Exactly 32 items
       const totalItems = exactDeck.length;
 
-      // Staggered spawning: ~170ms interval across ~5.5s so all 32 items fall smoothly
-      const spawnIntervalMs = isMobile ? 180 : 160;
+      // Staggered spawning: ~190ms interval so all 32 items fall smoothly without GPU congestion
+      const spawnIntervalMs = isMobile ? 210 : 190;
       let activeItemsCount = 0;
       let currentItemIndex = 0;
 
       // Zone-based distribution prevents items from clumping in the same column
-      const zoneCount = isMobile ? 8 : 14;
+      const zoneCount = isMobile ? 8 : 12;
       let lastZone = -1;
 
       function pickZone() {
@@ -2094,12 +2420,11 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
 
         const config = exactDeck[currentItemIndex++];
         const zone = pickZone();
-        const zoneWidth = 88 / zoneCount;
-        const startX = 6 + (zone * zoneWidth) + (Math.random() * (zoneWidth * 0.7));
+        const zoneWidth = 84 / zoneCount;
+        const startXPercent = 8 + (zone * zoneWidth) + (Math.random() * (zoneWidth * 0.7));
 
         // Subtle horizontal drift during descent
-        const drift = config.driftRange[0] + Math.random() * (config.driftRange[1] - config.driftRange[0]);
-        const endX = Math.max(2, Math.min(96, startX + (drift / window.innerWidth * 100)));
+        const driftPx = Math.round(config.driftRange[0] + Math.random() * (config.driftRange[1] - config.driftRange[0]));
 
         // Rotation variation
         const rotStart = config.rotRange[0] + Math.random() * (config.rotRange[1] - config.rotRange[0]);
@@ -2119,8 +2444,8 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
         item.style.width = `${size}px`;
         item.style.height = `${size}px`;
         item.style.setProperty('--item-font-size', `${size}px`);
-        item.style.setProperty('--start-x', `${startX.toFixed(1)}vw`);
-        item.style.setProperty('--end-x', `${endX.toFixed(1)}vw`);
+        item.style.setProperty('--item-left', `${startXPercent.toFixed(1)}%`);
+        item.style.setProperty('--drift-x', `${driftPx}px`);
         item.style.setProperty('--rot-start', `${rotStart.toFixed(1)}deg`);
         item.style.setProperty('--rot-end', `${rotEnd.toFixed(1)}deg`);
         item.style.animationDuration = `${duration.toFixed(2)}s`;
