@@ -689,31 +689,6 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
       margin-top: 2px;
     }
 
-    .pizza-title-wrap {
-      display: inline-flex;
-      flex-direction: column;
-      vertical-align: middle;
-    }
-
-    .pizza-caption {
-      font-size: 0.74rem;
-      color: var(--cream-dim);
-      font-style: italic;
-      margin-top: 2px;
-    }
-
-    .item-thumb {
-      width: 36px;
-      height: 36px;
-      border-radius: 6px;
-      object-fit: cover;
-      margin-right: 8px;
-      border: 1px solid rgba(227, 177, 62, 0.3);
-      flex-shrink: 0;
-      vertical-align: middle;
-      display: inline-block;
-    }
-
     /* Search Empty State */
     #search-empty {
       display: none;
@@ -1414,7 +1389,1135 @@ MENU_DATA and REVIEWS_DATA). You do NOT need to touch any HTML or CSS to make up
 
   </div>
 
-  <!-- ===== MODULAR TYPESCRIPT APPLICATION ENTRY ===== -->
-  <script type="module" src="/src/main.ts"></script>
+  <!-- ===== INLINED SCRIPT & EDITABLE DATA ===== -->
+  <script>
+    /* =========================================================================
+       VIEWPORT & SCROLL RESTORATION: ALWAYS START AT TOP (BEGINNING OF PAGE)
+       ========================================================================= */
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    function resetPageToTop() {
+      if (window.location.hash) {
+        try {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        } catch (e) {}
+      }
+      const prevBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      document.documentElement.style.scrollBehavior = prevBehavior;
+
+      const catNav = document.getElementById('category-nav');
+      if (catNav) {
+        catNav.scrollTo({ left: 0, behavior: 'instant' });
+      }
+    }
+
+    // Immediate execution
+    resetPageToTop();
+
+    /* =========================================================================
+       RESTAURANT MENU DATA (Easily edit dish names, prices, or descriptions)
+       ========================================================================= */
+    const MENU_DATA = [
+      {
+        id: "appetizer",
+        name: "Appetizer",
+        emoji: "🍟",
+        items: [
+          { name: "French Fries", price: "200/-" },
+          { name: "Chicken Fry 2 Pcs", price: "180/-" },
+          { name: "Chicken Fry 6 Pcs", price: "300/-" },
+          { name: "Fried Omlet 2 Pcs", price: "120/-" },
+          { name: "Naga Wings 6 Pcs", price: "300/-" },
+          { name: "BBQ Chicken Wings 6 Pcs", price: "200/-" },
+          { name: "Roast Chicken 2/4 Pcs", price: "200/400/-" },
+          { name: "Golden Fried Prawn 6 Pcs", price: "300/-" },
+          { name: "Basket Chicken 6 Pcs", price: "200/-" }
+        ]
+      },
+      {
+        id: "seafood-appetizer",
+        name: "Seafood Appetizer",
+        emoji: "🦐",
+        items: [
+          { name: "Fish N Chips", price: "300/-" },
+          { name: "Fish Finger 6 Pcs", price: "280/-" },
+          { name: "Fried Crab", price: "220/-" },
+          { name: "Fried Calamari", price: "320/-" },
+          { name: "Grilled Calamari", price: "350/-" }
+        ]
+      },
+      {
+        id: "meatbox",
+        name: "Meatbox",
+        emoji: "🥡",
+        items: [
+          { name: "Classic Meatbox", price: "250/-" },
+          { name: "Naga Meatbox", price: "300/-" },
+          { name: "Special Cheesy Meatbox", price: "340/-" },
+          { name: "Meatball Box", price: "300/-" },
+          { name: "BBQ Meatbox", price: "260/-" }
+        ]
+      },
+      {
+        id: "nachos",
+        name: "Nachos",
+        emoji: "🧀",
+        items: [
+          { name: "Mexican Special Nachos", price: "300/-" },
+          { name: "BBQ Chicken Nachos", price: "250/-" },
+          { name: "Creamy Nachos", price: "300/-" },
+          { name: "Tower Nachos", price: "400/-" }
+        ]
+      },
+      {
+        id: "sizzling",
+        name: "Sizzling",
+        emoji: "🔥",
+        items: [
+          { name: "Beef Sizzling with Mix Fried Rice", price: "600/-" },
+          { name: "Chicken Sizzling with Mix Fried Rice", price: "450/-" },
+          { name: "Prawn Sizzling with Rice", price: "600/-" }
+        ]
+      },
+      {
+        id: "pasta",
+        name: "Pasta",
+        emoji: "🍝",
+        items: [
+          { name: "Oven Baked Pasta", price: "380/-" },
+          { name: "Mexican Spicy Pasta", price: "250/-" },
+          { name: "White Creamy Pasta", price: "300/-" },
+          { name: "Alfredo Pasta", price: "320/-" },
+          { name: "Mix Chicken Pasta", price: "350/-" },
+          { name: "Chicken Noodles", price: "320/-" }
+        ]
+      },
+      {
+        id: "ramen",
+        name: "Ramen",
+        emoji: "🍜",
+        items: [
+          { name: "Korean Spicy Ramen", price: "200/-" },
+          { name: "Special Ramen", price: "280/-" },
+          { name: "Noodles Soup", price: "250/-" }
+        ]
+      },
+      {
+        id: "salad",
+        name: "Salad",
+        emoji: "🥗",
+        items: [
+          { name: "Cashew Nut Salad Saacy", price: "220/-" },
+          { name: "Cashew Nuts Salad (Pcs)", price: "200/-" },
+          { name: "Honey Chicken Salad", price: "300/-" },
+          { name: "Mix Rait Salad", price: "150/-" }
+        ]
+      },
+      {
+        id: "rice",
+        name: "Rice",
+        emoji: "🍚",
+        items: [
+          { name: "Mix Fried Rice 1:3", price: "420/-" },
+          { name: "Plain Rice", price: "240/-" },
+          { name: "Vegetables Egg Fried Rice", price: "320/-" },
+          { name: "Mexican Spicy Rice", price: "300/-" }
+        ]
+      },
+      {
+        id: "curry",
+        name: "Curry",
+        emoji: "🍛",
+        items: [
+          { name: "Thai Mix Vegetable", price: "260/-" },
+          { name: "Sauteed Mushroom", price: "300/-" },
+          { name: "Vegetables", price: "300/-" },
+          { name: "Chicken Butter Masala 1:3", price: "300/-" },
+          { name: "Beef Kichuri", price: "280/-" },
+          { name: "Beef Chili Onion", price: "300/-" },
+          { name: "Sweet And Sour Chicken", price: "300/-" },
+          { name: "Chicken Chili Onion", price: "300/-" },
+          { name: "Mutton Rezala", price: "250/-" },
+          { name: "Beef Kalavuna", price: "300/-" },
+          { name: "Beef Sizzling", price: "300/-" },
+          { name: "Chicken Sizzling", price: "300/-" }
+        ]
+      },
+      {
+        id: "biriyani",
+        name: "Biriyani",
+        emoji: "🍲",
+        items: [
+          { name: "Mutton Kacchi", price: "320/-" },
+          { name: "Beef Tehari", price: "300/-" },
+          { name: "Chicken Hyderabady", price: "320/-" },
+          { name: "Beef Hyderabady", price: "320/-" },
+          { name: "Mutton Hyderabady", price: "350/-" },
+          { name: "Beef Khichuri", price: "250/-" },
+          { name: "Beef Biriyani", price: "250/-" }
+        ]
+      },
+      {
+        id: "soup",
+        name: "Soup",
+        emoji: "🥣",
+        items: [
+          { name: "Thai Soup", price: "130/180/-" },
+          { name: "Thai Chicken Soup", price: "120/-" },
+          { name: "Hot And Sour Soup", price: "120/-" },
+          { name: "Corn Soup", price: "120/-" },
+          { name: "Cream Of Mushroom Soup", price: "150/-" },
+          { name: "Sea Food Soup", price: "200/-" }
+        ]
+      },
+      {
+        id: "burger",
+        name: "Burger",
+        emoji: "🍔",
+        items: [
+          { name: "BBQ Chicken Burger", price: "230/-" },
+          { name: "Broast Chicken Burger", price: "240/-" },
+          { name: "Double Decker", price: "340/-" },
+          { name: "Student Burger", price: "200/-" },
+          { name: "Beef Cheese Burger", price: "300/-" }
+        ]
+      },
+      {
+        id: "pizza",
+        name: "Pizza",
+        emoji: "🍕",
+        type: "pizza-table",
+        pizzas: [
+          { name: "BBQ Chicken Pizza", prices: ["-", "-", "-"], note: "(confirm price with restaurant)" },
+          { name: "Cheese Lover Pizza", prices: ["420", "620", "840"] },
+          { name: "Sea Food Pizza", prices: ["480", "780", "980"] },
+          { name: "Meat Lover Pizza", prices: ["450", "650", "850"] }
+        ]
+      },
+      {
+        id: "bangla",
+        name: "Bangla",
+        emoji: "🍽️",
+        items: [
+          { name: "Plain Rice", price: "60/-" },
+          { name: "Fish Vorta", price: "100/-" },
+          { name: "Alu Vorta", price: "60/-" },
+          { name: "Chicken Roast Piece (1P/2P)", price: "240/-" },
+          { name: "Chicken Korma", price: "230/-" },
+          { name: "Mutton Rezala", price: "240/-" },
+          { name: "Rupchada Fry", price: "120/-" },
+          { name: "Rupchada Curry", price: "150/-" },
+          { name: "Prawn Masala", price: "200/-" }
+        ]
+      },
+      {
+        id: "grill-shawarma",
+        name: "Grill & Shawarma",
+        emoji: "🌯",
+        items: [
+          { name: "Shawarma", price: "130/-" },
+          { name: "Chicken Grill", price: "180/-" },
+          { name: "Chicken Grill Single", price: "120/-" },
+          { name: "Butter Naan", price: "70/-" },
+          { name: "Plain Naan", price: "35/-" },
+          { name: "Garlic Naan", price: "55/-" },
+          { name: "Special Naan", price: "60/-" }
+        ]
+      },
+      {
+        id: "kabob",
+        name: "Kabob",
+        emoji: "🍢",
+        items: [
+          { name: "Beef Shish Kabab", price: "260/-" },
+          { name: "Chicken Boti Kabab", price: "240/-" },
+          { name: "Chicken Hariyali", price: "240/-" },
+          { name: "Tandoori Chicken", price: "1390/-", desc: "Whole chicken" }
+        ]
+      },
+      {
+        id: "set-meal",
+        name: "Set Meal",
+        emoji: "🍱",
+        items: [
+          { name: "Set 1", price: "240/-", desc: "Fried Rice + Chicken Fry 2 Pcs / Chinese Vegetable + Salad" },
+          { name: "Set 2", price: "280/-", desc: "Fried Rice + Mix Vegetable + Beef Chili Onion + Salad" },
+          { name: "Set 3", price: "300/-", desc: "Beef Masala + Fried Rice + Vegetable + Salad" },
+          { name: "Beef Masala + Naan", price: "270/-" },
+          { name: "Chicken Masala + Naan", price: "180/-" },
+          { name: "Mutton Kacchi + Borhani + Jali Kabab", price: "400/-" }
+        ]
+      },
+      {
+        id: "juice-shake",
+        name: "Juice & Shake",
+        emoji: "🥤",
+        items: [
+          { name: "Mint Lemon", price: "120/-" },
+          { name: "Sweet And Sour Lassi", price: "100/-" },
+          { name: "Lassi", price: "100/-" },
+          { name: "Mint Lassi", price: "100/-" },
+          { name: "Papaya Juice", price: "100/-" },
+          { name: "Orange Juice", price: "130/-" },
+          { name: "Chocolate Milkshake", price: "130/-" },
+          { name: "Vanilla Milkshake", price: "130/-" },
+          { name: "Oreo Milkshake", price: "150/-" },
+          { name: "Bottled Water", price: "", desc: "250ml 40/-, 1000ml 150/-" },
+          { name: "Falooda", price: "150/-" },
+          { name: "Fruit", price: "50/-" },
+          { name: "Malai Shake", price: "50/-", desc: "Faint menu label — please confirm with restaurant" },
+          { name: "Cold Coffee", price: "100/-" },
+          { name: "Iced Coffee", price: "150/-" },
+          { name: "Black Coffee", price: "60/-" }
+        ]
+      },
+      {
+        id: "cha-tea",
+        name: "Cha - Tea",
+        emoji: "☕",
+        items: [
+          { name: "Malai Cha", price: "30/-" },
+          { name: "Special Malai Cha", price: "50/-" }
+        ]
+      }
+    ];
+
+    /* =========================================================================
+       CUSTOMER REVIEWS DATA (Facebook-Comment Style)
+       ========================================================================= */
+    const REVIEWS_DATA = [
+      {
+        id: 1,
+        author: "Samir Imran Sagar",
+        profileUrl: "https://m.facebook.com/samirimransagar/",
+        avatarType: "fb-default",
+        avatarBg: "#ced2d8",
+        time: "2 hrs ago",
+        text: "The Mutton Kacchi here is hands down one of the best in town! Meat was tender, flavorful, and the Borhani paired with it perfectly. Highly recommended!",
+        likes: 18,
+        liked: false
+      },
+      {
+        id: 2,
+        author: "Nabila Farzana",
+        initials: "NF",
+        avatarBg: "#e3b13e", // Gold
+        time: "Yesterday at 7:30 PM",
+        text: "Special Cheesy Meatbox and Korean Spicy Ramen were super delicious. Great portion sizes and prompt table service. Will definitely come back with friends!",
+        likes: 24,
+        liked: false
+      },
+      {
+        id: 3,
+        author: "Rashidul Karim",
+        initials: "RK",
+        avatarBg: "#0f3826", // Emerald
+        time: "3 days ago",
+        text: "Had Beef Sizzling with Mix Fried Rice tonight with family. Came out steaming hot with that irresistible sizzle aroma. Finishing with Special Malai Cha was heavenly.",
+        likes: 15,
+        liked: false
+      },
+      {
+        id: 4,
+        author: "Sumaiya Anjum",
+        initials: "SA",
+        avatarBg: "#98121e", // Burgundy
+        time: "1 week ago",
+        text: "Tried Oven Baked Pasta and BBQ Chicken Wings. Rich cheese, authentic spices, and very reasonable pricing. Queen Palace never disappoints!",
+        likes: 31,
+        liked: false
+      }
+    ];
+
+    /* =========================================================================
+       DYNAMIC MEASUREMENT FOR BUG-FREE STICKY POSITIONING (Section 5)
+       ========================================================================= */
+    function updateStickyMetrics() {
+      const header = document.querySelector('header.top');
+      const nav = document.querySelector('nav.cat-nav');
+      if (header) {
+        const hh = header.getBoundingClientRect().height;
+        document.documentElement.style.setProperty('--header-actual-h', `${hh}px`);
+      }
+      if (nav) {
+        const nh = nav.getBoundingClientRect().height;
+        document.documentElement.style.setProperty('--nav-actual-h', `${nh}px`);
+      }
+    }
+
+    // Measure immediately and on all window/font changes
+    window.addEventListener('resize', updateStickyMetrics);
+    window.addEventListener('orientationchange', updateStickyMetrics);
+    if ('fonts' in document) {
+      document.fonts.ready.then(updateStickyMetrics);
+    }
+
+    /* =========================================================================
+       DOM RENDERING ENGINE
+       ========================================================================= */
+    const catNavEl = document.getElementById('category-nav');
+    const menuSectionsEl = document.getElementById('menu-sections');
+    const reviewsListEl = document.getElementById('reviews-list');
+
+    // 1. Render Category Navigation Chips
+    function renderCategoryNav() {
+      catNavEl.innerHTML = MENU_DATA.map((cat, index) => `
+        <button type="button" class="cat-chip ${index === 0 ? 'active' : ''}" data-cat="${cat.id}">
+          <span class="chip-emoji">${cat.emoji}</span>
+          <span>${cat.name}</span>
+        </button>
+      `).join('');
+    }
+
+    // 2. Render Menu Sections and Items
+    function renderMenuSections() {
+      // Clear before search empty & reviews
+      const existingSections = menuSectionsEl.querySelectorAll('.cat-section');
+      existingSections.forEach(s => s.remove());
+
+      const searchEmptyEl = document.getElementById('search-empty');
+
+      MENU_DATA.forEach((cat, catIdx) => {
+        const sectionEl = document.createElement('section');
+        sectionEl.className = 'cat-section';
+        sectionEl.id = `cat-${cat.id}`;
+        sectionEl.setAttribute('data-category-id', cat.id);
+
+        let contentHtml = '';
+
+        if (cat.type === 'pizza-table') {
+          // Pizza Table Layout
+          contentHtml = `
+            <table class="pizza-table" aria-label="${cat.name} sizes and prices">
+              <thead>
+                <tr>
+                  <th class="col-name">Name</th>
+                  <th class="col-size">8"</th>
+                  <th class="col-size">10"</th>
+                  <th class="col-size">12"</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${cat.pizzas.map(pizza => `
+                  <tr class="pizza-row" data-search-name="${pizza.name.toLowerCase()}">
+                    <td class="col-name">
+                      ${pizza.name}
+                      ${pizza.note ? `<span class="pizza-note">${pizza.note}</span>` : ''}
+                    </td>
+                    <td class="col-price">${pizza.prices[0]}</td>
+                    <td class="col-price">${pizza.prices[1]}</td>
+                    <td class="col-price">${pizza.prices[2]}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          `;
+        } else {
+          // Standard Item or Combo Rows
+          contentHtml = cat.items.map((item, idx) => {
+            const numStr = String(idx + 1).padStart(2, '0');
+            const searchName = item.name.toLowerCase();
+
+            if (item.desc) {
+              return `
+                <div class="combo-row" data-search-name="${searchName}">
+                  <div class="combo-main">
+                    <span class="item-num">${numStr}</span>
+                    <span class="item-name">${item.name}</span>
+                    <span class="item-dots"></span>
+                    <span class="item-price">${item.price}</span>
+                  </div>
+                  <div class="combo-desc">${item.desc}</div>
+                </div>
+              `;
+            } else {
+              return `
+                <div class="item-row" data-search-name="${searchName}">
+                  <span class="item-num">${numStr}</span>
+                  <span class="item-name">${item.name}</span>
+                  <span class="item-dots"></span>
+                  <span class="item-price">${item.price}</span>
+                </div>
+              `;
+            }
+          }).join('');
+        }
+
+        const shineDelay = `${((catIdx * 1.3) % 6).toFixed(1)}s`;
+        sectionEl.innerHTML = `
+          <div class="cat-ribbon" style="--shine-delay: ${shineDelay};">
+            <span class="ribbon-emoji">${cat.emoji}</span>
+            <h2>${cat.name}</h2>
+            <span class="ribbon-emoji">${cat.emoji}</span>
+          </div>
+          <div class="items-container">
+            ${contentHtml}
+          </div>
+        `;
+
+        menuSectionsEl.insertBefore(sectionEl, searchEmptyEl);
+      });
+    }
+
+    // 3. Render Facebook-Style Customer Reviews
+    function renderReviews() {
+      reviewsListEl.innerHTML = REVIEWS_DATA.map(rev => {
+        const isClickable = Boolean(rev.profileUrl);
+
+        let avatarContent = '';
+        if (rev.avatarType === 'fb-default') {
+          avatarContent = `
+            <svg class="fb-default-avatar" viewBox="0 0 36 36" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="18" cy="18" r="18" fill="#ced2d8"/>
+              <circle cx="18" cy="12.5" r="5.5" fill="#ffffff"/>
+              <path d="M8.5 28.8a17.9 17.9 0 0 0 19 0c-.8-4.5-4.8-7.8-9.5-7.8s-8.7 3.3-9.5 7.8z" fill="#ffffff"/>
+            </svg>
+          `;
+        } else {
+          avatarContent = rev.initials;
+        }
+
+        const avatarMarkup = isClickable
+          ? `<a href="${rev.profileUrl}" target="_blank" rel="noopener noreferrer" class="review-avatar review-avatar-link" style="background-color: ${rev.avatarBg || '#ced2d8'};" aria-label="Visit ${rev.author} on Facebook">${avatarContent}</a>`
+          : `<div class="review-avatar" style="background-color: ${rev.avatarBg};">${avatarContent}</div>`;
+
+        const authorMarkup = isClickable
+          ? `<a href="${rev.profileUrl}" target="_blank" rel="noopener noreferrer" class="review-author review-author-link" title="Visit ${rev.author} on Facebook">${rev.author}</a>`
+          : `<span class="review-author">${rev.author}</span>`;
+
+        return `
+          <div class="review-item ${isClickable ? 'review-item-clickable' : ''}" id="review-${rev.id}" ${isClickable ? `data-profile-url="${rev.profileUrl}" role="link" tabindex="0" title="Click review to view ${rev.author} on Facebook"` : ''}>
+            ${avatarMarkup}
+            <div class="review-bubble">
+              <div>
+                ${authorMarkup}
+                <span class="review-verified">✓ Foodie Guest</span>
+              </div>
+              <p class="review-body">${rev.text}</p>
+              <div class="review-reactions-pill">
+                <span>👍 ❤️</span>
+                <span class="reaction-count" id="rev-count-${rev.id}">${rev.likes}</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-footer">
+            <button class="review-footer-btn like-btn ${rev.liked ? 'liked' : ''}" data-review-id="${rev.id}">
+              👍 Like
+            </button>
+            <span>·</span>
+            <button class="review-footer-btn reply-btn">Reply</button>
+            <span>·</span>
+            <span class="review-time">${rev.time}</span>
+          </div>
+        `;
+      }).join('');
+
+      // Add click handler for clickable review items (e.g. Samir Imran Sagar)
+      reviewsListEl.querySelectorAll('.review-item-clickable').forEach(item => {
+        const url = item.getAttribute('data-profile-url');
+        if (!url) return;
+
+        item.addEventListener('click', function(e) {
+          if (e.target.closest('a')) return; // native <a> link handles itself
+          window.open(url, '_blank', 'noopener,noreferrer');
+        });
+
+        item.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            window.open(url, '_blank', 'noopener,noreferrer');
+          }
+        });
+      });
+
+      // Add Like Click Event Handlers
+      reviewsListEl.querySelectorAll('.like-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const revId = parseInt(this.getAttribute('data-review-id'), 10);
+          const review = REVIEWS_DATA.find(r => r.id === revId);
+          if (!review) return;
+
+          review.liked = !review.liked;
+          review.likes += review.liked ? 1 : -1;
+
+          this.classList.toggle('liked', review.liked);
+          const countEl = document.getElementById(`rev-count-${revId}`);
+          if (countEl) countEl.textContent = review.likes;
+        });
+      });
+    }
+
+    /* =========================================================================
+       INTERSECTION OBSERVER: REVEAL ON SCROLL (FADE IN EFFECT)
+       ========================================================================= */
+    function setupScrollReveal() {
+      const sections = document.querySelectorAll('.cat-section');
+
+      function revealSectionItems(section) {
+        section.classList.add('is-revealed');
+        const items = section.querySelectorAll('.item-row, .combo-row, .pizza-row');
+        items.forEach((item, idx) => {
+          item.style.setProperty('--pop-delay', `${Math.min(idx * 24, 220)}ms`);
+          item.classList.add('item-fade-in', 'item-pop-in');
+        });
+      }
+
+      if (!('IntersectionObserver' in window)) {
+        sections.forEach(s => revealSectionItems(s));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            revealSectionItems(entry.target);
+            observer.unobserve(entry.target); // Reveal once, never loop
+          }
+        });
+      }, {
+        threshold: 0.08,
+        rootMargin: '0px 0px 50px 0px'
+      });
+
+      sections.forEach(s => observer.observe(s));
+    }
+
+    /* =========================================================================
+       ACTIVE CATEGORY TRACKER DURING SCROLL
+       ========================================================================= */
+    let isClickScrolling = false;
+    let clickScrollTimer = null;
+
+    function setupActiveCategoryTracking() {
+      const chips = document.querySelectorAll('.cat-chip');
+      const sections = document.querySelectorAll('.cat-section');
+
+      function highlightActiveChip() {
+        if (isClickScrolling) return;
+
+        // Current scroll reference offset right under sticky nav
+        const headerH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-actual-h')) || 70;
+        const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-actual-h')) || 46;
+        const triggerY = window.scrollY + headerH + navH + 40;
+
+        let currentActiveId = null;
+
+        sections.forEach(section => {
+          const top = section.offsetTop;
+          const height = section.offsetHeight;
+          if (triggerY >= top && triggerY < top + height) {
+            currentActiveId = section.getAttribute('data-category-id');
+          }
+        });
+
+        // Default to first if near top
+        if (!currentActiveId && window.scrollY < 200 && sections.length > 0) {
+          currentActiveId = sections[0].getAttribute('data-category-id');
+        }
+
+        if (currentActiveId) {
+          chips.forEach(chip => {
+            const isMatch = chip.getAttribute('data-cat') === currentActiveId;
+            if (isMatch && !chip.classList.contains('active')) {
+              chip.classList.add('active');
+              // Auto-scroll chip into view horizontally inside nav container only
+              const catNav = document.getElementById('category-nav');
+              if (catNav) {
+                const targetLeft = chip.offsetLeft - (catNav.clientWidth / 2) + (chip.clientWidth / 2);
+                catNav.scrollTo({ left: targetLeft, behavior: 'smooth' });
+              }
+            } else if (!isMatch) {
+              chip.classList.remove('active');
+            }
+          });
+        }
+      }
+
+      window.addEventListener('scroll', highlightActiveChip, { passive: true });
+
+      // Handle category chip click: smooth scroll cleanly
+      chips.forEach(chip => {
+        chip.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('data-cat');
+          const targetSection = document.getElementById(`cat-${targetId}`);
+          if (!targetSection) return;
+
+          // Mark active
+          chips.forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+          const catNav = document.getElementById('category-nav');
+          if (catNav) {
+            const targetLeft = this.offsetLeft - (catNav.clientWidth / 2) + (this.clientWidth / 2);
+            catNav.scrollTo({ left: targetLeft, behavior: 'smooth' });
+          }
+
+          isClickScrolling = true;
+          clearTimeout(clickScrollTimer);
+
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+
+          clickScrollTimer = setTimeout(() => {
+            isClickScrolling = false;
+          }, 700);
+        });
+      });
+    }
+
+    /* =========================================================================
+       REAL-TIME SEARCH FILTERING
+       ========================================================================= */
+    function setupSearch() {
+      const searchInput = document.getElementById('menu-search');
+      const clearBtn = document.getElementById('search-clear');
+      const searchEmpty = document.getElementById('search-empty');
+      const resetBtn = document.getElementById('reset-search-btn');
+      const catNav = document.getElementById('category-nav');
+
+      function filterMenu() {
+        const query = searchInput.value.trim().toLowerCase();
+        clearBtn.style.display = query.length > 0 ? 'block' : 'none';
+
+        if (query === '') {
+          // Reset all items & sections
+          document.querySelectorAll('.cat-section').forEach(s => {
+            s.style.display = '';
+            s.querySelectorAll('.item-row, .combo-row, .pizza-row').forEach((row, idx) => {
+              const wasHidden = row.style.display === 'none';
+              row.style.display = '';
+              if (wasHidden) {
+                row.classList.remove('item-fade-in', 'item-pop-in');
+                void row.offsetWidth; // Force CSS animation restart
+                row.style.setProperty('--pop-delay', `${Math.min(idx * 18, 160)}ms`);
+                row.classList.add('item-fade-in', 'item-pop-in');
+              }
+            });
+          });
+          searchEmpty.style.display = 'none';
+          catNav.style.display = 'flex';
+          updateStickyMetrics();
+          return;
+        }
+
+        // Hide category nav while actively searching
+        catNav.style.display = 'none';
+
+        let totalMatches = 0;
+        const sections = document.querySelectorAll('.cat-section');
+
+        sections.forEach(section => {
+          const rows = section.querySelectorAll('.item-row, .combo-row, .pizza-row');
+          let sectionMatches = 0;
+
+          rows.forEach(row => {
+            const name = row.getAttribute('data-search-name') || '';
+            if (name.includes(query)) {
+              row.style.display = '';
+              sectionMatches++;
+
+              // Trigger smooth fade-in animation on matching filtered items
+              row.classList.remove('item-fade-in', 'item-pop-in');
+              void row.offsetWidth; // Force CSS animation restart
+              row.style.setProperty('--pop-delay', `${Math.min(sectionMatches * 20, 180)}ms`);
+              row.classList.add('item-fade-in', 'item-pop-in');
+            } else {
+              row.style.display = 'none';
+              row.classList.remove('item-fade-in', 'item-pop-in');
+            }
+          });
+
+          if (sectionMatches > 0) {
+            section.style.display = '';
+            section.classList.add('is-revealed');
+            totalMatches += sectionMatches;
+          } else {
+            section.style.display = 'none';
+          }
+        });
+
+        searchEmpty.style.display = totalMatches === 0 ? 'block' : 'none';
+        updateStickyMetrics();
+      }
+
+      const searchContainer = document.querySelector('.search-container');
+
+      searchInput.addEventListener('focus', () => {
+        if (searchContainer) searchContainer.classList.add('is-focused');
+      });
+
+      searchInput.addEventListener('blur', () => {
+        if (searchContainer) searchContainer.classList.remove('is-focused');
+      });
+
+      searchInput.addEventListener('input', filterMenu);
+
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchInput.focus();
+        filterMenu();
+      });
+
+      resetBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        filterMenu();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    /* =========================================================================
+       FLOATING BACK TO TOP BUTTON
+       ========================================================================= */
+    function setupBackToTop() {
+      const bttBtn = document.getElementById('back-to-top');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 480) {
+          bttBtn.classList.add('visible');
+        } else {
+          bttBtn.classList.remove('visible');
+        }
+      }, { passive: true });
+
+      bttBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    /* =========================================================================
+       FOOD-FALLING ENTRANCE SHOWER ANIMATION (EMOJIS)
+       ========================================================================= */
+    const FOOD_ITEMS_CONFIG = [
+      {
+        emoji: '🍔',
+        name: 'Gourmet Burger',
+        rotRange: [-14, 14],
+        driftRange: [-12, 12],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 46,
+        sizeMobile: 36
+      },
+      {
+        emoji: '🍗',
+        name: 'Crispy Chicken',
+        rotRange: [-18, 18],
+        driftRange: [-14, 14],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 46,
+        sizeMobile: 36
+      },
+      {
+        emoji: '🍕',
+        name: 'Pizza Slice',
+        rotRange: [-16, 16],
+        driftRange: [-12, 12],
+        durationRange: [3.3, 3.9],
+        sizeDesktop: 46,
+        sizeMobile: 36
+      },
+      {
+        emoji: '🍟',
+        name: 'French Fries',
+        rotRange: [-12, 12],
+        driftRange: [-12, 12],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 46,
+        sizeMobile: 36
+      },
+      {
+        emoji: '☕',
+        name: 'Hot Cha & Coffee',
+        rotRange: [-8, 8],
+        driftRange: [-10, 10],
+        durationRange: [3.5, 4.1],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🧃',
+        name: 'Fruit Juice Box',
+        rotRange: [-10, 10],
+        driftRange: [-10, 10],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🍮',
+        name: 'Custard Dessert',
+        rotRange: [-8, 8],
+        driftRange: [-10, 10],
+        durationRange: [3.5, 4.1],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🥗',
+        name: 'Fresh Salad',
+        rotRange: [-14, 14],
+        driftRange: [-12, 12],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 46,
+        sizeMobile: 36
+      },
+      {
+        emoji: '🥘',
+        name: 'Biriyani & Curry Pan',
+        rotRange: [-10, 10],
+        driftRange: [-12, 12],
+        durationRange: [3.3, 3.9],
+        sizeDesktop: 46,
+        sizeMobile: 36
+      },
+      {
+        emoji: '🧁',
+        name: 'Cupcake Sweet',
+        rotRange: [-12, 12],
+        driftRange: [-10, 10],
+        durationRange: [3.5, 4.1],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🧇',
+        name: 'Waffle Dessert',
+        rotRange: [-14, 14],
+        driftRange: [-12, 12],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🌯',
+        name: 'Shawarma & Wrap',
+        rotRange: [-16, 16],
+        driftRange: [-12, 12],
+        durationRange: [3.3, 3.9],
+        sizeDesktop: 46,
+        sizeMobile: 36
+      },
+      {
+        emoji: '🥡',
+        name: 'Meatbox Takeout',
+        rotRange: [-10, 10],
+        driftRange: [-10, 10],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🧋',
+        name: 'Boba & Shake',
+        rotRange: [-8, 8],
+        driftRange: [-10, 10],
+        durationRange: [3.5, 4.1],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🍿',
+        name: 'Popcorn Snack',
+        rotRange: [-14, 14],
+        driftRange: [-12, 12],
+        durationRange: [3.4, 4.0],
+        sizeDesktop: 44,
+        sizeMobile: 34
+      },
+      {
+        emoji: '🧂',
+        name: 'Salt & Spice',
+        rotRange: [-12, 12],
+        driftRange: [-10, 10],
+        durationRange: [3.5, 4.2],
+        sizeDesktop: 40,
+        sizeMobile: 32
+      }
+    ];
+
+    let foodAnimationStarted = false;
+
+    function runEntranceAnimation() {
+      // Clean up legacy curtain container if present
+      const curtain = document.getElementById('entrance-curtain');
+      if (curtain) {
+        curtain.remove();
+      }
+
+      // Check prefers-reduced-motion: if enabled, disable effect entirely
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
+
+      // Ensure animation only runs once per page enter
+      if (foodAnimationStarted) return;
+      foodAnimationStarted = true;
+
+      // STEP 1: The website loads normally.
+      // STEP 2: Wait approximately 2 seconds before starting the food animation.
+      setTimeout(() => {
+        startFoodFallingAnimation();
+      }, 2000);
+    }
+
+    function startFoodFallingAnimation() {
+      // STEP 3: After the 2-second delay, start the food animation.
+      const overlay = document.createElement('div');
+      overlay.id = 'food-shower-overlay';
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(overlay);
+
+      const isMobile = window.innerWidth < 640;
+
+      // Create a deck where every emoji appears EXACTLY TWICE (16 emojis x 2 = 32 items)
+      // Shuffle wave 1 and wave 2 separately with Fisher-Yates so each emoji appears once in wave 1 and once in wave 2,
+      // guaranteeing spacing and preventing immediate repeats.
+      function shuffleArray(arr) {
+        const copy = [...arr];
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      const wave1 = shuffleArray(FOOD_ITEMS_CONFIG);
+      const wave2 = shuffleArray(FOOD_ITEMS_CONFIG);
+      // Ensure the first item of wave 2 is not the same as the last item of wave 1
+      if (wave1[wave1.length - 1].emoji === wave2[0].emoji && wave2.length > 1) {
+        [wave2[0], wave2[1]] = [wave2[1], wave2[0]];
+      }
+
+      const exactDeck = [...wave1, ...wave2]; // Exactly 32 items
+      const totalItems = exactDeck.length;
+
+      // Staggered spawning: ~190ms interval so all 32 items fall smoothly without GPU congestion
+      const spawnIntervalMs = isMobile ? 210 : 190;
+      let activeItemsCount = 0;
+      let currentItemIndex = 0;
+
+      // Zone-based distribution prevents items from clumping in the same column
+      const zoneCount = isMobile ? 8 : 12;
+      let lastZone = -1;
+
+      function pickZone() {
+        let zone;
+        do {
+          zone = Math.floor(Math.random() * zoneCount);
+        } while (zone === lastZone && zoneCount > 1);
+        lastZone = zone;
+        return zone;
+      }
+
+      function spawnFoodItem() {
+        if (!overlay || !overlay.parentNode) return;
+        if (currentItemIndex >= totalItems) return;
+
+        const config = exactDeck[currentItemIndex++];
+        const zone = pickZone();
+        const zoneWidth = 84 / zoneCount;
+        const startXPercent = 8 + (zone * zoneWidth) + (Math.random() * (zoneWidth * 0.7));
+
+        // Subtle horizontal drift during descent
+        const driftPx = Math.round(config.driftRange[0] + Math.random() * (config.driftRange[1] - config.driftRange[0]));
+
+        // Rotation variation
+        const rotStart = config.rotRange[0] + Math.random() * (config.rotRange[1] - config.rotRange[0]);
+        const rotDelta = (Math.random() - 0.5) * (config.rotRange[1] - config.rotRange[0]) * 1.5;
+        const rotEnd = rotStart + rotDelta;
+
+        // Size scaling
+        const baseSize = isMobile ? config.sizeMobile : config.sizeDesktop;
+        const size = Math.round(baseSize * (0.92 + Math.random() * 0.16));
+
+        // Speed / Duration
+        const duration = config.durationRange[0] + Math.random() * (config.durationRange[1] - config.durationRange[0]);
+
+        // STEP 4: Food emojis begin appearing from ABOVE the top edge of the screen
+        const item = document.createElement('div');
+        item.className = 'food-shower-item';
+        item.style.width = `${size}px`;
+        item.style.height = `${size}px`;
+        item.style.setProperty('--item-font-size', `${size}px`);
+        item.style.setProperty('--item-left', `${startXPercent.toFixed(1)}%`);
+        item.style.setProperty('--drift-x', `${driftPx}px`);
+        item.style.setProperty('--rot-start', `${rotStart.toFixed(1)}deg`);
+        item.style.setProperty('--rot-end', `${rotEnd.toFixed(1)}deg`);
+        item.style.animationDuration = `${duration.toFixed(2)}s`;
+
+        // Render emoji with clean accessible label
+        const emojiSpan = document.createElement('span');
+        emojiSpan.className = 'food-emoji';
+        emojiSpan.textContent = config.emoji;
+        emojiSpan.title = config.name;
+
+        item.appendChild(emojiSpan);
+        overlay.appendChild(item);
+        activeItemsCount++;
+
+        // STEP 5 & 6: Items fall vertically across screen, continue beyond bottom edge, and disappear
+        item.addEventListener('animationend', () => {
+          item.remove();
+          activeItemsCount--;
+          // STEP 8: When all 32 items finish falling, remove overlay container
+          if (currentItemIndex >= totalItems && activeItemsCount <= 0 && overlay.parentNode) {
+            overlay.remove();
+          }
+        });
+      }
+
+      // First item appears at 2.0s mark
+      spawnFoodItem();
+
+      // STEP 7: Spawn all 32 items in smooth sequence
+      const spawnTimer = setInterval(() => {
+        if (currentItemIndex >= totalItems) {
+          clearInterval(spawnTimer);
+          return;
+        }
+        spawnFoodItem();
+      }, spawnIntervalMs);
+
+      // Failsafe cleanup: after ~12 seconds from start, clean up overlay if not already removed
+      setTimeout(() => {
+        if (overlay && overlay.parentNode) {
+          overlay.remove();
+        }
+      }, (totalItems * spawnIntervalMs) + 6000);
+    }
+
+    /* =========================================================================
+       INITIALIZE APP
+       ========================================================================= */
+    document.addEventListener('DOMContentLoaded', () => {
+      resetPageToTop();
+      renderCategoryNav();
+      renderMenuSections();
+      renderReviews();
+      updateStickyMetrics();
+      setupScrollReveal();
+      setupActiveCategoryTracking();
+      setupSearch();
+      setupBackToTop();
+      runEntranceAnimation();
+      setTimeout(resetPageToTop, 20);
+      setTimeout(resetPageToTop, 150);
+    });
+
+    // Final metric update and ensure scroll starts at top
+    window.addEventListener('load', () => {
+      resetPageToTop();
+      updateStickyMetrics();
+    });
+
+    window.addEventListener('pageshow', () => {
+      resetPageToTop();
+    });
+  </script>
 </body>
 </html>
