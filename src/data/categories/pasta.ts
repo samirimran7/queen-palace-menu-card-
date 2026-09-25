@@ -9,7 +9,7 @@ export const pastaCategory: MenuCategory = {
     { name: "Mexican Spicy Pasta", price: "250/-", image: "", caption: "" },
     { name: "White Creamy Pasta", price: "300/-", image: "", caption: "" },
     { name: "Alfredo Pasta", price: "320/-", image: "", caption: "" },
-    { name: "Mix Chow mein", price: "320/-", image: "", caption: "" },
-    { name: "Chicken Noodles", price: "250/-", image: "", caption: "" }
+    { name: "Mix Chicken Pasta", price: "350/-", image: "", caption: "" },
+    { name: "Chicken Noodles", price: "320/-", image: "", caption: "" }
   ]
 };

@@ -8,26 +8,26 @@ export const pizzaCategory: MenuCategory = {
   pizzas: [
     {
       name: "BBQ Chicken Pizza",
-      prices: ["420", "620", "820"],
+      prices: ["-", "-", "-"],
       note: "(confirm price with restaurant)",
       image: "",
       caption: "Smoky BBQ chicken topping"
     },
     {
       name: "Cheese Lover Pizza",
-      prices: ["500", "700", "900"],
+      prices: ["420", "620", "840"],
       image: "",
       caption: "Triple cheese blend on handcrafted crust"
     },
     {
       name: "Sea Food Pizza",
-      prices: ["480", "680", "880"],
+      prices: ["480", "780", "980"],
       image: "",
       caption: "Assorted seafood with savory Italian herbs"
     },
     {
       name: "Meat Lover Pizza",
-      prices: ["450", "650", "840"],
+      prices: ["450", "650", "850"],
       image: "",
       caption: "Loaded with seasoned beef and chicken meats"
     }

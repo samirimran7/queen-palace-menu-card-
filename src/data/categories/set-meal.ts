@@ -7,9 +7,9 @@ export const setMealCategory: MenuCategory = {
   items: [
     {
       name: "Set 1",
-      price: "260/-",
+      price: "240/-",
       image: "",
-      caption: "Fried Rice + Chicken Fry 2 Pcs + Chinese Vegetable + Salad"
+      caption: "Fried Rice + Chicken Fry 2 Pcs / Chinese Vegetable + Salad"
     },
     {
       name: "Set 2",
@@ -25,7 +25,7 @@ export const setMealCategory: MenuCategory = {
     },
     {
       name: "Beef Masala + Naan",
-      price: "220/-",
+      price: "270/-",
       image: "",
       caption: ""
     },
