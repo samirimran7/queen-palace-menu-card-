@@ -8,6 +8,6 @@ export const riceCategory: MenuCategory = {
     { name: "Mix Fried Rice 1:3", price: "420/-", image: "", caption: "Serves 3 persons" },
     { name: "Plain Rice", price: "240/-", image: "", caption: "" },
     { name: "Vegetables Egg Fried Rice", price: "320/-", image: "", caption: "" },
-    { name: "Mexican Spicy Rice", price: "300/-", image: "", caption: "" }
+    { name: "Mexican Spicy Rice", price: "330/-", image: "", caption: "" }
   ]
 };

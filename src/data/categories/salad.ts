@@ -5,9 +5,9 @@ export const saladCategory: MenuCategory = {
   name: "Salad",
   emoji: "🥗",
   items: [
-    { name: "Cashew Nut Salad Saacy", price: "220/-", image: "", caption: "" },
-    { name: "Cashew Nuts Salad (Pcs)", price: "200/-", image: "", caption: "" },
+    { name: "Cashew Nut Salad Saacy", price: "320/-", image: "", caption: "" },
+    { name: "Cashew Nuts Salad Dry", price: "320/-", image: "", caption: "" },
     { name: "Honey Chicken Salad", price: "300/-", image: "", caption: "" },
-    { name: "Mix Rait Salad", price: "150/-", image: "", caption: "" }
+    { name: "Mix Raita Salad", price: "150/-", image: "", caption: "" }
   ]
 };
